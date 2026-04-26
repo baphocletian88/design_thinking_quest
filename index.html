@@ -1,0 +1,777 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:transparent}
+
+.cq{background:#0D0D1A;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.1);color:#F0F0FF}
+
+/* HUD */
+.hud{background:#1A1A35;border-bottom:0.5px solid rgba(255,255,255,0.08);padding:9px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hud-logo{font-size:11px;font-weight:500;letter-spacing:0.06em;display:flex;align-items:center;gap:5px;flex-shrink:0}
+.hud-creds{display:flex;gap:8px;flex:1;justify-content:center;flex-wrap:wrap}
+.hcred{display:flex;align-items:center;gap:4px;font-size:10px}
+.hcred-bar{width:48px;height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.hcred-fill{height:100%;border-radius:2px;transition:width 0.4s ease}
+.hcred-val{font-size:10px;color:#8888AA;min-width:12px;text-align:right}
+.htimer{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:500;flex-shrink:0}
+
+/* ERA MAP */
+.era-nav{background:#0D0D1A;border-bottom:0.5px solid rgba(255,255,255,0.07);padding:8px 14px;display:flex;align-items:center;justify-content:center;gap:3px}
+.enod{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;cursor:pointer;transition:all 0.2s;border:1.5px solid}
+.enod.done{background:rgba(186,117,23,0.2);border-color:#BA7517;color:#FAC775}
+.enod.active{background:rgba(29,158,117,0.18);border-color:#1D9E75;color:#5DCAA5}
+.enod.avail{background:rgba(127,119,221,0.15);border-color:#7F77DD;color:#AFA9EC}
+.enod.locked{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.12);color:#8888AA;cursor:default}
+.eline{width:12px;height:1px;background:#8888AA;opacity:0.3}
+.enod.final{width:34px;height:26px;border-radius:13px;font-size:8px;letter-spacing:0.04em}
+
+/* SCREENS */
+.scr{display:none;padding:12px 14px}.scr.on{display:block}
+
+/* ARCHETYPE SELECTOR */
+.arch-slider{overflow:hidden;position:relative}
+.arch-track{display:flex;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1)}
+.arch-slide{min-width:100%}
+.acard{border-radius:10px;border:1.5px solid;overflow:hidden;margin-bottom:10px}
+.acard-top{padding:12px;display:flex;align-items:center;gap:10px}
+.aav{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1.5px solid}
+.ameta h3{font-size:13px;font-weight:500;margin-bottom:2px}
+.ameta p{font-size:10px;color:#8888AA;line-height:1.4}
+.atags{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+.atag{font-size:9px;padding:2px 7px;border-radius:99px;font-weight:500}
+.acard-tools{border-top:0.5px solid rgba(255,255,255,0.07);padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tools-col-label{font-size:8px;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px;font-weight:500}
+.tool-item{font-size:10px;color:#8888AA;margin-bottom:3px;display:flex;align-items:flex-start;gap:4px;line-height:1.3}
+.tool-item::before{content:"·";flex-shrink:0}
+.apal{border-top:0.5px solid rgba(255,255,255,0.07);padding:8px 12px;display:flex;align-items:center;gap:8px}
+.pd{width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);flex-shrink:0}
+
+/* SLIDER CONTROLS */
+.slider-ctrl{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sarr{width:28px;height:28px;border-radius:50%;border:0.5px solid rgba(255,255,255,0.12);background:#1A1A35;color:#F0F0FF;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.sarr:hover{border-color:rgba(255,255,255,0.25)}
+.sarr:disabled{opacity:0.3;cursor:default}
+.sdots{display:flex;gap:5px}
+.sdot{width:5px;height:5px;border-radius:50%;background:#8888AA;opacity:0.35;cursor:pointer;transition:all 0.2s}
+.sdot.on{width:16px;border-radius:2.5px;opacity:1}
+
+/* RETO */
+.reto-box{background:#1A1A35;border-radius:8px;border:0.5px solid;padding:10px 12px;margin-bottom:10px}
+.reto-lbl{font-size:8px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;margin-bottom:5px}
+.reto-q{font-size:11px;font-weight:500;margin-bottom:8px}
+.reto-opts{display:flex;flex-direction:column;gap:4px}
+.ropt{padding:7px 10px;border-radius:6px;font-size:10px;cursor:pointer;border:0.5px solid rgba(255,255,255,0.1);background:#24243A;color:#F0F0FF;text-align:left;transition:all 0.15s;width:100%}
+.ropt:hover{border-color:rgba(255,255,255,0.25)}
+.ropt.sel{border-color:#1D9E75;background:rgba(29,158,117,0.1);color:#5DCAA5}
+.ropt.wrong{border-color:#D85A30;background:rgba(216,90,48,0.08);color:#F0997B}
+
+/* TOOL AREA */
+.tool-area{background:#1A1A35;border-radius:8px;border:0.5px solid rgba(255,255,255,0.08);padding:10px 12px;margin-bottom:10px}
+.tool-lbl{font-size:8px;text-transform:uppercase;letter-spacing:0.07em;color:#8888AA;margin-bottom:8px}
+.mb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px}
+.mbslot{aspect-ratio:1;border-radius:6px;border:0.5px dashed rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:9px;color:#8888AA;transition:all 0.2s}
+.mbslot:hover{border-color:rgba(255,255,255,0.25)}
+.mbslot.f{border-style:solid;border-color:rgba(255,255,255,0.18)}
+.pal-row{display:flex;gap:5px;align-items:center;margin-bottom:6px}
+.pcol{width:18px;height:18px;border-radius:50%;cursor:pointer;transition:transform 0.15s;border:1px solid rgba(255,255,255,0.1);flex-shrink:0}
+.pcol:hover{transform:scale(1.15)}
+.pcol.sel{outline:2px solid #F0F0FF;outline-offset:2px}
+.inp3{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.inp3 input{font-size:10px;padding:5px 6px;background:#24243A;color:#F0F0FF;border:0.5px solid rgba(255,255,255,0.1);border-radius:5px;width:100%;font-family:inherit}
+.inp3 input:focus{outline:none;border-color:#7F77DD}
+.fig-area{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.fig-left{display:flex;flex-direction:column;gap:4px}
+.fig-slot{flex:1;border-radius:6px;border:0.5px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:9px;color:#8888AA;cursor:pointer;transition:all 0.2s;padding:8px}
+.fig-slot:hover{border-color:rgba(255,255,255,0.25)}
+.fig-slot.sel{border-color:#1D9E75;background:rgba(29,158,117,0.08);color:#5DCAA5}
+.persp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px}
+.pslot{aspect-ratio:1.4;border-radius:5px;border:0.5px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:9px;color:#8888AA;cursor:pointer;transition:all 0.15s}
+.pslot:hover{border-color:rgba(255,255,255,0.25)}
+.pslot.sel{border-color:#BA7517;background:rgba(186,117,23,0.1);color:#FAC775}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px}
+.sframe{border-radius:5px;border:0.5px solid rgba(255,255,255,0.1);padding:6px;aspect-ratio:1.6;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:all 0.2s}
+.sframe:hover{border-color:rgba(255,255,255,0.22)}
+.sframe.sel{border-color:#7F77DD;background:rgba(127,119,221,0.07)}
+.sframe-num{font-size:8px;color:#8888AA}
+.sframe-area{flex:1;border-radius:3px;background:rgba(255,255,255,0.04);margin:3px 0}
+.sframe-cap{font-size:8px;color:#8888AA}
+.sframe-cap input{font-size:8px;background:transparent;border:none;color:#F0F0FF;width:100%;outline:none;font-family:inherit}
+.route-pick{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.rpick{border-radius:7px;border:0.5px solid rgba(255,255,255,0.1);background:#24243A;padding:8px 10px;cursor:pointer;transition:all 0.2s;text-align:left}
+.rpick:hover{border-color:rgba(255,255,255,0.22)}
+.rpick.sel{border-color:#7F77DD;background:rgba(127,119,221,0.08)}
+.rpick-title{font-size:10px;font-weight:500;margin-bottom:3px}
+.rpick-sub{font-size:9px;color:#8888AA}
+
+/* PROGRESS BAR */
+.prog{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:6px}
+.prog-fill{height:100%;border-radius:2px;background:#1D9E75;transition:width 0.5s ease}
+
+/* TOAST */
+.toast{background:rgba(186,117,23,0.13);border:0.5px solid rgba(186,117,23,0.35);border-radius:7px;padding:8px 10px;display:none;align-items:center;gap:8px;margin-bottom:8px}
+.toast.on{display:flex}
+.toast p{font-size:10px;color:#FAC775}
+
+/* INVENTORY */
+.inv-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.inv-card{background:#1A1A35;border:0.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px;text-align:center}
+.inv-icon{font-size:13px;display:block;margin-bottom:2px}
+.inv-n{font-size:18px;font-weight:500}
+.inv-l{font-size:8px;color:#8888AA;margin-top:1px}
+.entries{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.entry{background:#1A1A35;border:0.5px solid;border-radius:7px;padding:7px 10px;display:flex;align-items:center;gap:7px}
+.entry-check{font-size:11px;flex-shrink:0}
+.entry-info{flex:1}
+.entry-title{font-size:10px;font-weight:500}
+.entry-sub{font-size:9px;color:#8888AA}
+
+/* REFLEXION */
+.ref-card{background:#1A1A35;border:0.5px solid;border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.ref-n{font-size:20px;font-weight:500;margin-bottom:3px}
+.ref-q{font-size:10px;margin-bottom:6px}
+.ref-ta{width:100%;background:#24243A;border:0.5px solid rgba(255,255,255,0.1);border-radius:5px;padding:7px;font-size:10px;color:#F0F0FF;resize:none;min-height:44px;font-family:inherit}
+.ref-ta:focus{outline:none;border-color:#7F77DD}
+
+/* FINAL LAMINA */
+.lamina{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.lslot{background:#1A1A35;border:0.5px solid rgba(255,255,255,0.1);border-radius:8px;aspect-ratio:0.85;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all 0.2s}
+.lslot:hover:not(.placed){border-color:rgba(255,255,255,0.2)}
+.lslot.placed{border-color:rgba(29,158,117,0.4);background:rgba(29,158,117,0.05)}
+.lslot-icon{font-size:20px}
+.lslot-lbl{font-size:9px;font-weight:500}
+.lslot-era{font-size:8px;color:#8888AA}
+
+/* BTNS */
+.btn{width:100%;padding:9px;border-radius:7px;font-size:11px;font-weight:500;border:0;cursor:pointer;transition:all 0.15s;margin-top:8px;font-family:inherit}
+.btn-p{background:rgba(127,119,221,0.15);color:#AFA9EC;border:0.5px solid rgba(127,119,221,0.4)}
+.btn-p:hover{background:rgba(127,119,221,0.25)}
+.btn-c{background:rgba(29,158,117,0.12);color:#5DCAA5;border:0.5px solid rgba(29,158,117,0.35)}
+.btn-c:hover{background:rgba(29,158,117,0.22)}
+.btn-g{background:rgba(186,117,23,0.12);color:#FAC775;border:0.5px solid rgba(186,117,23,0.35)}
+.btn-g:hover{background:rgba(186,117,23,0.22)}
+
+/* BOTTOM NAV */
+.bnav{display:flex;gap:5px;padding:10px 14px;border-top:0.5px solid rgba(255,255,255,0.07);flex-wrap:wrap}
+.bnav-btn{flex:1;min-width:60px;padding:6px 4px;border-radius:6px;font-size:9px;font-weight:500;border:0.5px solid rgba(255,255,255,0.1);background:transparent;color:#8888AA;cursor:pointer;transition:all 0.15s;text-align:center;font-family:inherit}
+.bnav-btn:hover{border-color:rgba(255,255,255,0.2);color:#F0F0FF}
+.bnav-btn.active{border-color:#7F77DD;background:rgba(127,119,221,0.1);color:#AFA9EC}
+
+.scr-title{font-size:12px;font-weight:500;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.scr-title span{font-size:9px;color:#8888AA;font-weight:400}
+.sec-lbl{font-size:8px;text-transform:uppercase;letter-spacing:0.07em;color:#8888AA;margin-bottom:6px;margin-top:8px}
+
+select{font-size:10px;padding:5px 6px;background:#24243A;color:#F0F0FF;border:0.5px solid rgba(255,255,255,0.1);border-radius:5px;width:100%;font-family:inherit}
+select:focus{outline:none}
+</style>
+
+<h2 class="sr-only">Creative Quest — Prueba de admision gamificada completa, 90 minutos, con 5 arquetipos, 5 eras y sistema de creditos creativos.</h2>
+
+<div class="cq">
+
+  <!-- HUD -->
+  <div class="hud">
+    <div class="hud-logo">
+      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><polygon points="7,1 13,4.5 13,10.5 7,14 1,10.5 1,4.5" stroke="#AFA9EC" stroke-width="1.3" fill="none"/><circle cx="7" cy="7" r="2" fill="#AFA9EC"/></svg>
+      <span style="color:#AFA9EC">CREATIVE QUEST</span>
+    </div>
+    <div class="hud-creds">
+      <div class="hcred"><span style="color:#AFA9EC;font-size:10px">✦</span><div class="hcred-bar"><div class="hcred-fill" id="bv" style="background:#7F77DD;width:0%"></div></div><span class="hcred-val" id="vv">0</span></div>
+      <div class="hcred"><span style="color:#5DCAA5;font-size:10px">⬡</span><div class="hcred-bar"><div class="hcred-fill" id="bf" style="background:#1D9E75;width:0%"></div></div><span class="hcred-val" id="vf">0</span></div>
+      <div class="hcred"><span style="color:#FAC775;font-size:10px">★</span><div class="hcred-bar"><div class="hcred-fill" id="bn" style="background:#BA7517;width:0%"></div></div><span class="hcred-val" id="vn">0</span></div>
+      <div class="hcred"><span style="color:#97C459;font-size:10px">⬟</span><div class="hcred-bar"><div class="hcred-fill" id="bt" style="background:#639922;width:0%"></div></div><span class="hcred-val" id="vt">0</span></div>
+    </div>
+    <div class="htimer" id="htimer" style="color:#5DCAA5">
+      <svg width="11" height="11" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><line x1="7" y1="7" x2="7" y2="3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="7" y1="7" x2="10" y2="8.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <span id="tdisp">90:00</span>
+    </div>
+  </div>
+
+  <!-- ERA NAV -->
+  <div class="era-nav">
+    <div class="enod" id="enod0" onclick="goEra(0)">I</div>
+    <div class="eline"></div>
+    <div class="enod" id="enod1" onclick="goEra(1)">II</div>
+    <div class="eline"></div>
+    <div class="enod" id="enod2" onclick="goEra(2)">III</div>
+    <div class="eline"></div>
+    <div class="enod" id="enod3" onclick="goEra(3)">IV</div>
+    <div class="eline"></div>
+    <div class="enod" id="enod4" onclick="goEra(4)">V</div>
+    <div class="eline"></div>
+    <div class="enod final" id="enod5" onclick="goScr('lamina')">FINAL</div>
+  </div>
+
+  <!-- SCREEN: ONBOARDING -->
+  <div class="scr on" id="scr-onboard">
+    <div class="scr-title">Elige tu arquetipo <span>— define quien eres en esta aventura</span></div>
+
+    <div class="slider-ctrl">
+      <button class="sarr" id="sarr-prev" onclick="archMove(-1)" disabled>‹</button>
+      <div class="sdots" id="sdots"></div>
+      <button class="sarr" id="sarr-next" onclick="archMove(1)">›</button>
+    </div>
+
+    <div class="arch-slider">
+      <div class="arch-track" id="arch-track"></div>
+    </div>
+
+    <button class="btn btn-p" onclick="confirmArch()">Elegir este arquetipo y comenzar la aventura</button>
+  </div>
+
+  <!-- SCREEN: MAPA -->
+  <div class="scr" id="scr-mapa">
+    <div class="scr-title">Mapa del mundo <span id="arch-name-hud"></span></div>
+    <div id="arch-mini" style="background:#1A1A35;border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <div id="mini-av" style="width:32px;height:32px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0"></div>
+      <div>
+        <div id="mini-name" style="font-size:11px;font-weight:500"></div>
+        <div id="mini-tags" style="display:flex;gap:4px;margin-top:3px;flex-wrap:wrap"></div>
+      </div>
+    </div>
+    <div id="era-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px"></div>
+    <button class="btn btn-c" onclick="goScr('inventario')">Ver inventario de creditos</button>
+  </div>
+
+  <!-- SCREEN: ERA ACTIVA -->
+  <div class="scr" id="scr-era">
+    <div class="scr-title" id="era-title">Era I <span></span></div>
+    <div class="toast" id="toast"><span style="font-size:14px">✦</span><p id="toast-msg">Creditos obtenidos</p></div>
+    <div id="era-content"></div>
+  </div>
+
+  <!-- SCREEN: INVENTARIO -->
+  <div class="scr" id="scr-inventario">
+    <div class="scr-title">Inventario de creditos</div>
+    <div class="inv-grid">
+      <div class="inv-card"><span class="inv-icon" style="color:#AFA9EC">✦</span><div class="inv-n" id="iv-v" style="color:#AFA9EC">0</div><div class="inv-l">Vision</div></div>
+      <div class="inv-card"><span class="inv-icon" style="color:#5DCAA5">⬡</span><div class="inv-n" id="iv-f" style="color:#5DCAA5">0</div><div class="inv-l">Forma</div></div>
+      <div class="inv-card"><span class="inv-icon" style="color:#FAC775">★</span><div class="inv-n" id="iv-n" style="color:#FAC775">0</div><div class="inv-l">Narrativa</div></div>
+      <div class="inv-card"><span class="inv-icon" style="color:#97C459">⬟</span><div class="inv-n" id="iv-t" style="color:#97C459">0</div><div class="inv-l">Tecnica</div></div>
+    </div>
+    <div class="sec-lbl">Entregables completados</div>
+    <div class="entries" id="entries-list"><div style="font-size:10px;color:#8888AA;padding:6px 0">Ninguna era completada aun...</div></div>
+    <button class="btn btn-p" onclick="goScr('mapa')">Volver al mapa</button>
+  </div>
+
+  <!-- SCREEN: REFLEXION -->
+  <div class="scr" id="scr-diario">
+    <div class="scr-title">Diario del Heroe <span>— reflexion metacognitiva · 5 min</span></div>
+    <div class="ref-card" style="border-color:rgba(127,119,221,0.3)">
+      <div class="ref-n" style="color:#AFA9EC">1</div>
+      <div class="ref-q">Una decision que tome hoy que me sorprendio a mi mismo fue...</div>
+      <textarea class="ref-ta" id="ref1" placeholder="Escribe para ti, no para nosotros..."></textarea>
+    </div>
+    <div class="ref-card" style="border-color:rgba(29,158,117,0.3)">
+      <div class="ref-n" style="color:#5DCAA5">2</div>
+      <div class="ref-q">La era donde mas flui fue _______ porque...</div>
+      <textarea class="ref-ta" id="ref2" placeholder=""></textarea>
+    </div>
+    <div class="ref-card" style="border-color:rgba(216,90,48,0.3)">
+      <div class="ref-n" style="color:#F0997B">3</div>
+      <div class="ref-q">Si tuviera 10 minutos mas, le daria mas atencion a...</div>
+      <textarea class="ref-ta" id="ref3" placeholder=""></textarea>
+    </div>
+    <button class="btn btn-g" onclick="goScr('lamina')">Ensamblar el Gran Mapa final</button>
+  </div>
+
+  <!-- SCREEN: LAMINA FINAL -->
+  <div class="scr" id="scr-lamina">
+    <div class="scr-title">El Gran Mapa <span>— lamina final del universo · 8 min</span></div>
+    <div class="lamina" id="lamina-grid"></div>
+    <div style="font-size:9px;color:#8888AA;text-align:center;margin-bottom:8px">Completa las eras para llenar tu lamina. Las completadas se muestran con brillo.</div>
+    <button class="btn btn-c" id="export-btn" onclick="exportarLamina()" style="display:none">Exportar lamina y finalizar aventura</button>
+    <button class="btn btn-p" onclick="goScr('diario')">Volver al Diario del Heroe</button>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bnav">
+    <button class="bnav-btn active" id="bn-onboard" onclick="goScr('onboard')">Arquetipo</button>
+    <button class="bnav-btn" id="bn-mapa" onclick="goScr('mapa')">Mapa</button>
+    <button class="bnav-btn" id="bn-era" onclick="goScr('era')">Era activa</button>
+    <button class="bnav-btn" id="bn-inventario" onclick="goScr('inventario')">Inventario</button>
+    <button class="bnav-btn" id="bn-diario" onclick="goScr('diario')">Diario</button>
+    <button class="bnav-btn" id="bn-lamina" onclick="goScr('lamina')">Lamina</button>
+  </div>
+</div>
+
+<script>
+const ARCHS=[
+  {id:0,name:'Gamer Futurista',sub:'Cyberpunk · Vive en el futuro',icon:'🎮',accent:'#7F77DD',accentAl:'rgba(127,119,221,0.18)',pal:['#0D0D1A','#1A0A3A','#6E00FF','#00FFFF','#FF00A0'],palNames:'Void · Indigo · Neon · Cyan · Pink',tags:['Oscuro','Neon','Geo'],tools:['Procreate — logo dark neon','Coolors — paleta neon','FlipaClip — anim HUD','Figma — UI pantalla juego','Tinkercad — gadget/arma'],eras:['Era I — Logo neon + moodboard dark','Era IV — Gadget / arma signature','Era V Ruta B — Anim cyberpunk','Era III — Studio tech','Era II — Armor + tech'],cr:[4,4,2,3]},
+  {id:1,name:'Artista Bohemio',sub:'Vintage · Colecciona y resignifica',icon:'🎨',accent:'#BA7517',accentAl:'rgba(186,117,23,0.18)',pal:['#3B2A1A','#8B6520','#C4913A','#E8C88A','#F5EDD8'],palNames:'Tierra · Ocre · Dorado · Arena · Crema',tags:['Calido','Textura','Organico'],tools:['Adobe Capture — texturas','Procreate — ilustracion vintage','Coolors — paleta tierra','Pinterest — refs retro/folk','Stop Motion — anim objetos'],eras:['Era I — Moodboard collage analogico','Era III — Taller/studio artistico','Era II — Look boho + textiles','Era IV — Objeto artesanal','Era V Ruta A — Storyboard narrativo'],cr:[5,3,4,1]},
+  {id:2,name:'Deportista Urbano',sub:'Streetwear · La calle es su cancha',icon:'🏀',accent:'#D85A30',accentAl:'rgba(216,90,48,0.18)',pal:['#1A0A05','#8B3010','#D85A30','#F5A070','#F0E8D0'],palNames:'Carbon · Ladrillo · Coral · Salmon · Offwhite',tags:['Urban','Bold','Movimiento'],tools:['Fashion Design Flat — prendas sport','Coolors — paleta bold','SketchBook — boceto sneaker','Homestyler — espacio urbano','FlipaClip — anim movimiento'],eras:['Era II — Outfit streetwear funcional','Era IV — Sneaker o accesorio','Era I — Marca bold tipografica','Era III — Espacio urbano/cancha','Era V Ruta B — Anim movimiento'],cr:[3,5,2,3]},
+  {id:3,name:'Musico Indie',sub:'Minimalista · Menos es mas',icon:'🎵',accent:'#D4537E',accentAl:'rgba(212,83,126,0.18)',pal:['#1A1020','#6A3A5A','#C090A0','#E8D0DA','#F8F0F4'],palNames:'Medianoche · Bermellon · Rosa palido · Blush · Blanc',tags:['Minimal','Silencio','Palido'],tools:['Procreate — ilustracion lineal','Coolors — paleta desaturada','Figma — portada de album','SketchBook — boceto instrumento','Stop Motion — video minimal'],eras:['Era I — Identidad limpia tipografica','Era V Ruta A — Mockup portada','Era II — Estilo oversized monocromo','Era III — Espacio intimo y vacio','Era IV — Instrumento signature'],cr:[5,2,5,1]},
+  {id:4,name:'Tech Entrepreneur',sub:'Clean · Construye en publico',icon:'💡',accent:'#3B6D11',accentAl:'rgba(59,109,17,0.18)',pal:['#0A1208','#1A3A10','#3B8A20','#90C060','#F0F8E8'],palNames:'Bosque · Verde prof · Verde · Lima · Blanco verde',tags:['Limpio','Sistemas','Modular'],tools:['Figma — sistema de marca','Coolors — paleta clean','Procreate — logo geometrico','Homestyler — open workspace','SketchBook — gadget minimal'],eras:['Era V Ruta A — Mockup app/dashboard','Era I — Logotipo clean + sistema','Era IV — Dispositivo minimal','Era III — Oficina open work','Era II — Look casual tech'],cr:[3,3,3,4]}
+];
+
+const ERAS=[
+  {id:0,name:'Fundacion del Reino',disc:'Identidad visual y moodboard',dur:18,cr:[3,1,0,0],color:'#7F77DD',colorAl:'rgba(127,119,221,0.15)'},
+  {id:1,name:'El Ejercito',disc:'Vestuario y estilo del personaje',dur:15,cr:[0,2,1,0],color:'#1D9E75',colorAl:'rgba(29,158,117,0.15)'},
+  {id:2,name:'La Ciudadela',disc:'Espacio y studio del personaje',dur:15,cr:[0,2,0,1],color:'#BA7517',colorAl:'rgba(186,117,23,0.15)'},
+  {id:3,name:'El Artefacto',disc:'Objeto signature del personaje',dur:15,cr:[0,2,0,1],color:'#D85A30',colorAl:'rgba(216,90,48,0.15)'},
+  {id:4,name:'La Leyenda',disc:'Narrativa, animacion o interfaz',dur:15,cr:[0,0,2,1],color:'#D4537E',colorAl:'rgba(212,83,126,0.15)'}
+];
+
+const RETOS=[
+  {q:'¿Que elemento define mas la estetica de tu personaje?',opts:['La paleta de color y contraste','La tipografia y formas geometricas','La textura y materialidad','La narrativa y emocion que transmite'],corr:0},
+  {q:'¿Que estilo de vestuario representa mejor a tu personaje?',opts:['Funcional y tecnico','Expresivo y experimental','Clasico con twist personal','Minimalista y editorial'],corr:1},
+  {q:'¿Como describirias el espacio ideal de tu personaje?',opts:['Ordenado y lleno de sistemas','Organico con objetos que cuentan historias','Vacio y con mucha luz','Lleno de tecnologia y pantallas'],corr:2},
+  {q:'¿Que hace especial al objeto signature de tu personaje?',opts:['Su funcion tecnica','Su historia y origen','Su forma y estetica','Su capacidad de conectar con otros'],corr:3},
+  {q:'¿Que formato narra mejor el mundo de tu personaje?',opts:['Un storyboard visual secuencial','Un mockup de interfaz digital','Una micro-animacion en loop','Una composicion de imagen fija'],corr:0}
+];
+
+let G={arch:null,secs:5400,running:false,cred:{v:0,f:0,n:0,t:0},eraState:[0,0,0,0,0],eraProgress:[0,0,0,0,0],archIdx:0,activeEra:0,entries:[],retoAnswered:[false,false,false,false,false],mbFilled:[false,false,false,false,false,false],retoSel:[null,null,null,null,null],routePick:[null,null,null,null,null]};
+
+function goScr(id){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('scr-'+id);
+  if(el) el.classList.add('on');
+  const bn=document.getElementById('bn-'+id);
+  if(bn) bn.classList.add('active');
+  if(id==='mapa') renderMapa();
+  if(id==='inventario') renderInventario();
+}
+
+function goEra(idx){
+  if(!G.arch){goScr('onboard');return;}
+  if(G.eraState[idx]===2){showToast('Esta era ya esta completa',1500);return;}
+  G.activeEra=idx;
+  renderEra(idx);
+  goScr('era');
+}
+
+function updateTimer(){
+  if(!G.running) return;
+  G.secs=Math.max(0,G.secs-1);
+  const m=Math.floor(G.secs/60);
+  const s=G.secs%60;
+  const el=document.getElementById('tdisp');
+  const ht=document.getElementById('htimer');
+  if(el) el.textContent=m+':'+(s<10?'0':'')+s;
+  if(ht){
+    if(G.secs<600) ht.style.color='#F0997B';
+    else if(G.secs<1800) ht.style.color='#FAC775';
+    else ht.style.color='#5DCAA5';
+  }
+  if(G.secs===0){G.running=false; goScr('diario');}
+}
+setInterval(updateTimer,1000);
+
+function gainCreds(v,f,n,t){
+  G.cred.v+=v; G.cred.f+=f; G.cred.n+=n; G.cred.t+=t;
+  syncCredUI();
+}
+function syncCredUI(){
+  const M=10;
+  ['v','f','n','t'].forEach(k=>{
+    const val=G.cred[k];
+    const pct=Math.min(Math.round(val/M*100),100);
+    const b=document.getElementById('b'+k);
+    const vv=document.getElementById('v'+k);
+    const iv=document.getElementById('iv-'+k);
+    if(b) b.style.width=pct+'%';
+    if(vv) vv.textContent=val;
+    if(iv) iv.textContent=val;
+  });
+}
+
+function showToast(msg,dur){
+  const t=document.getElementById('toast');
+  const tm=document.getElementById('toast-msg');
+  if(t&&tm){tm.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),dur||2500);}
+}
+
+function updateEraNodes(){
+  ERAS.forEach((e,i)=>{
+    const nd=document.getElementById('enod'+i);
+    if(!nd) return;
+    nd.className='enod';
+    if(G.eraState[i]===2) nd.classList.add('done');
+    else if(i===G.activeEra&&G.arch) nd.classList.add('active');
+    else if(G.arch&&(i===0||G.eraState[i-1]===2||G.eraState[Math.max(0,i-1)]>=1)) nd.classList.add('avail');
+    else nd.classList.add('locked');
+  });
+  const fn=document.getElementById('enod5');
+  if(fn){
+    const all=G.eraState.every(s=>s===2);
+    fn.className='enod final '+(all?'done':'locked');
+  }
+}
+
+/* ── ARCHETYPE SLIDER ── */
+function buildArchSlider(){
+  const track=document.getElementById('arch-track');
+  const dots=document.getElementById('sdots');
+  track.innerHTML=''; dots.innerHTML='';
+  ARCHS.forEach((a,i)=>{
+    const slide=document.createElement('div');
+    slide.className='arch-slide';
+    slide.innerHTML=`
+      <div class="acard" style="border-color:${a.accent};background:#1A1A35">
+        <div class="acard-top">
+          <div class="aav" style="background:${a.accentAl};border-color:${a.accent}">${a.icon}</div>
+          <div class="ameta">
+            <h3 style="color:${a.accent}">${a.name}</h3>
+            <p>${a.sub}</p>
+            <div class="atags">${a.tags.map(t=>`<span class="atag" style="background:${a.accentAl};color:${a.accent};border:0.5px solid ${a.accent}40">${t}</span>`).join('')}</div>
+          </div>
+        </div>
+        <div class="acard-tools">
+          <div>
+            <div class="tools-col-label" style="color:${a.accent}">Herramientas clave</div>
+            ${a.tools.map(t=>`<div class="tool-item">${t}</div>`).join('')}
+          </div>
+          <div>
+            <div class="tools-col-label" style="color:${a.accent}">Orden sugerido de eras</div>
+            ${a.eras.map(e=>`<div class="tool-item">${e}</div>`).join('')}
+          </div>
+        </div>
+        <div class="apal">
+          <span style="font-size:9px;color:#8888AA;flex-shrink:0">Paleta</span>
+          <div style="display:flex;gap:5px">${a.pal.map(c=>`<div class="pd" style="background:${c}"></div>`).join('')}</div>
+          <span style="font-size:8px;color:#8888AA">${a.palNames}</span>
+        </div>
+      </div>`;
+    track.appendChild(slide);
+    const d=document.createElement('div');
+    d.className='sdot'+(i===0?' on':'');
+    d.onclick=()=>archGo(i);
+    dots.appendChild(d);
+  });
+}
+
+function archMove(d){archGo(G.archIdx+d);}
+function archGo(i){
+  G.archIdx=Math.max(0,Math.min(4,i));
+  document.getElementById('arch-track').style.transform=`translateX(-${G.archIdx*100}%)`;
+  document.querySelectorAll('.sdot').forEach((d,j)=>d.classList.toggle('on',j===G.archIdx));
+  document.getElementById('sarr-prev').disabled=G.archIdx===0;
+  document.getElementById('sarr-next').disabled=G.archIdx===4;
+}
+
+function confirmArch(){
+  G.arch=ARCHS[G.archIdx];
+  G.running=true;
+  G.activeEra=0;
+  G.eraState=[1,0,0,0,0];
+  updateEraNodes();
+  renderMapa();
+  goScr('mapa');
+}
+
+/* ── MAPA ── */
+function renderMapa(){
+  if(!G.arch) return;
+  const a=G.arch;
+  const av=document.getElementById('mini-av');
+  const mn=document.getElementById('mini-name');
+  const mt=document.getElementById('mini-tags');
+  const anh=document.getElementById('arch-name-hud');
+  if(av){av.style.borderColor=a.accent;av.style.background=a.accentAl;av.textContent=a.icon;}
+  if(mn){mn.textContent=a.name;mn.style.color=a.accent;}
+  if(mt) mt.innerHTML=a.tags.map(t=>`<span class="atag" style="background:${a.accentAl};color:${a.accent};border:0.5px solid ${a.accent}40;font-size:8px;padding:1px 5px">${t}</span>`).join('');
+  if(anh) anh.textContent='— '+a.name;
+  const ec=document.getElementById('era-cards');
+  if(!ec) return;
+  ec.innerHTML='';
+  ERAS.forEach((e,i)=>{
+    const st=G.eraState[i];
+    const div=document.createElement('div');
+    div.style.cssText=`background:#1A1A35;border-radius:9px;padding:10px;border:1px solid;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden`;
+    let bc=st===2?e.color:st===1?e.color+'88':'rgba(255,255,255,0.08)';
+    let badge=st===2?'completa':st===1?'disponible':'bloqueada';
+    let badgeC=st===2?e.color:st===1?e.color:'#8888AA';
+    div.style.borderColor=bc;
+    div.style.opacity=st===0?'0.5':'1';
+    div.style.cursor=st===0?'default':'pointer';
+    div.innerHTML=`
+      <div style="position:absolute;top:7px;right:7px;font-size:8px;padding:2px 5px;border-radius:99px;background:${badgeC}22;color:${badgeC};border:0.5px solid ${badgeC}44">${badge}</div>
+      <div style="font-size:18px;font-weight:500;color:${st===0?'#8888AA':e.color};margin-bottom:3px">${['I','II','III','IV','V'][i]}</div>
+      <div style="font-size:11px;font-weight:500;margin-bottom:2px">${e.name}</div>
+      <div style="font-size:9px;color:#8888AA">${e.disc}</div>
+      <div style="display:flex;gap:3px;margin-top:6px">
+        ${e.cr[0]?`<span style="font-size:8px;padding:2px 5px;border-radius:4px;background:rgba(127,119,221,0.12);color:#AFA9EC">✦x${e.cr[0]}</span>`:''}
+        ${e.cr[1]?`<span style="font-size:8px;padding:2px 5px;border-radius:4px;background:rgba(29,158,117,0.12);color:#5DCAA5">⬡x${e.cr[1]}</span>`:''}
+        ${e.cr[2]?`<span style="font-size:8px;padding:2px 5px;border-radius:4px;background:rgba(186,117,23,0.12);color:#FAC775">★x${e.cr[2]}</span>`:''}
+        ${e.cr[3]?`<span style="font-size:8px;padding:2px 5px;border-radius:4px;background:rgba(99,153,34,0.12);color:#97C459">⬟x${e.cr[3]}</span>`:''}
+      </div>
+      ${G.eraProgress[i]>0&&st!==2?`<div class="prog"><div class="prog-fill" style="width:${Math.round(G.eraProgress[i]*100)}%"></div></div>`:''}
+    `;
+    if(st>0) div.onclick=()=>goEra(i);
+    ec.appendChild(div);
+  });
+  updateEraNodes();
+}
+
+/* ── ERA ACTIVA ── */
+function renderEra(idx){
+  const e=ERAS[idx];
+  const a=G.arch;
+  const title=document.getElementById('era-title');
+  if(title) title.innerHTML=`Era ${['I','II','III','IV','V'][idx]} — ${e.name} <span>${e.disc} · ${e.dur} min</span>`;
+  const cont=document.getElementById('era-content');
+  if(!cont) return;
+  const r=RETOS[idx];
+  const retoAnswered=G.retoAnswered[idx];
+  const eraOpts=['mbFilled','figura','perspectiva','objeto','ruta'].map((_,i)=>G.routePick[idx]);
+  
+  let html=``;
+  
+  // RETO
+  if(!retoAnswered){
+    html+=`<div class="reto-box" style="border-color:${e.color}44">
+      <div class="reto-lbl" style="color:${e.color}">Mini-reto · gana creditos creativos</div>
+      <div class="reto-q">${r.q}</div>
+      <div class="reto-opts">
+        ${r.opts.map((o,i)=>`<button class="ropt${G.retoSel[idx]===i?' '+(i===r.corr?'sel':'wrong'):''}" onclick="answerReto(${idx},${i},${r.corr})">${o}</button>`).join('')}
+      </div>
+    </div>`;
+  } else {
+    html+=`<div style="background:rgba(29,158,117,0.08);border:0.5px solid rgba(29,158,117,0.3);border-radius:7px;padding:7px 10px;margin-bottom:8px;font-size:10px;color:#5DCAA5">✓ Mini-reto completado — creditos obtenidos</div>`;
+  }
+  
+  // TOOL AREA POR ERA
+  if(idx===0){
+    // Era I: Moodboard + paleta + logo
+    html+=`<div class="tool-area">
+      <div class="tool-lbl">Herramienta de creacion — Identidad visual</div>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Moodboard — arrastra imagenes a los slots</div>
+      <div class="mb-grid">
+        ${[0,1,2,3,4,5].map(i=>`<div class="mbslot${G.mbFilled[i]?' f':''}" onclick="fillMb(${i})" style="${G.mbFilled[i]?'border-color:'+a.accent+';background:'+a.accentAl:''}">
+          ${G.mbFilled[i]?`<span style="font-size:8px;color:${a.accent}">${['Textura','Referente','Color','Forma','Espacio','Concepto'][i]}</span>`:'+ imagen'}
+        </div>`).join('')}
+      </div>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Paleta cromatica del arquetipo</div>
+      <div class="pal-row">
+        ${a.pal.map((c,i)=>`<div class="pcol" style="background:${c}" onclick="selPal(this)"></div>`).join('')}
+        <span style="font-size:9px;color:#8888AA;margin-left:4px">${a.palNames}</span>
+      </div>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Tipografia y logo — 3 palabras clave</div>
+      <div class="inp3">
+        <input type="text" placeholder="Palabra 1" id="e0k0">
+        <input type="text" placeholder="Palabra 2" id="e0k1">
+        <input type="text" placeholder="Palabra 3" id="e0k2">
+      </div>
+    </div>`;
+  } else if(idx===1){
+    // Era II: Figurin + vestuario
+    html+=`<div class="tool-area">
+      <div class="tool-lbl">Herramienta de creacion — Vestuario</div>
+      <div class="fig-area">
+        <div class="fig-left">
+          <div style="font-size:9px;color:#8888AA;margin-bottom:4px">Silueta base</div>
+          ${['Silueta A','Silueta B','Silueta C'].map((s,i)=>`<div class="fig-slot${G.retoSel[1]===10+i?' sel':''}" onclick="selFig(${i})" style="${G.retoSel[1]===10+i?'border-color:'+e.color+';background:'+e.colorAl:''}">
+            <span style="font-size:9px">${s}</span>
+          </div>`).join('')}
+        </div>
+        <div>
+          <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Color del outfit</div>
+          <div class="pal-row" style="flex-wrap:wrap;gap:5px;margin-bottom:8px">
+            ${['#2A2A4A','#1D3A5C','#3D1A4A','#4A2A1A','#0A3A2A','#1A1A1A'].map(c=>`<div class="pcol" style="background:${c}" onclick="selPal(this)"></div>`).join('')}
+          </div>
+          <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Estilo de prenda</div>
+          <select><option>Armadura tech</option><option>Streetwear bold</option><option>Look boho</option><option>Minimalista</option><option>Athleisure</option><option>Editorial clean</option></select>
+          <div style="font-size:9px;color:#8888AA;margin:6px 0 4px">3 palabras estetica (obligatorio)</div>
+          <div class="inp3">
+            <input type="text" placeholder="Kw 1" id="e1k0">
+            <input type="text" placeholder="Kw 2" id="e1k1">
+            <input type="text" placeholder="Kw 3" id="e1k2">
+          </div>
+        </div>
+      </div>
+    </div>`;
+  } else if(idx===2){
+    // Era III: Espacio
+    html+=`<div class="tool-area">
+      <div class="tool-lbl">Herramienta de creacion — Espacio</div>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Elige perspectiva del espacio</div>
+      <div class="persp-grid">
+        ${['Frontal','Isometrica','Planta'].map((p,i)=>`<div class="pslot${G.retoSel[2]===20+i?' sel':''}" onclick="selPersp(${i})">
+          <span style="font-size:9px">${p}</span>
+        </div>`).join('')}
+      </div>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Tipo de espacio</div>
+      <select style="margin-bottom:6px"><option>Studio tech / gaming</option><option>Taller artistico</option><option>Espacio urbano</option><option>Estudio minimalista</option><option>Oficina open work</option></select>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Elementos del espacio (selecciona los que incluyes)</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        ${['Pantallas','Plantas','Libros','Instrumentos','Equipo sport','Gadgets','Arte en pared','Iluminacion neon'].map(el=>`<button onclick="toggleEl(this)" style="font-size:9px;padding:3px 7px;border-radius:4px;border:0.5px solid rgba(255,255,255,0.12);background:#24243A;color:#8888AA;cursor:pointer;transition:all 0.15s" class="el-btn">${el}</button>`).join('')}
+      </div>
+    </div>`;
+  } else if(idx===3){
+    // Era IV: Objeto
+    html+=`<div class="tool-area">
+      <div class="tool-lbl">Herramienta de creacion — Objeto signature</div>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Tipo de objeto</div>
+      <select style="margin-bottom:8px">
+        <option>Control / gadget gaming</option><option>Instrumento musical</option><option>Sneaker / calzado</option><option>Camara / lente</option><option>Dispositivo tech propio</option><option>Objeto artesanal</option><option>Accesorio de moda</option><option>Herramienta creativa</option>
+      </select>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Boceto tecnico — anotaciones obligatorias (3)</div>
+      <div style="display:grid;grid-template-columns:1fr;gap:4px;margin-bottom:8px">
+        <input type="text" placeholder="Nombre del objeto" id="e3k0" style="font-size:10px;padding:5px 6px;background:#24243A;color:#F0F0FF;border:0.5px solid rgba(255,255,255,0.1);border-radius:5px;font-family:inherit">
+        <input type="text" placeholder="Material principal" id="e3k1" style="font-size:10px;padding:5px 6px;background:#24243A;color:#F0F0FF;border:0.5px solid rgba(255,255,255,0.1);border-radius:5px;font-family:inherit">
+        <input type="text" placeholder="Caracteristica especial que lo hace unico" id="e3k2" style="font-size:10px;padding:5px 6px;background:#24243A;color:#F0F0FF;border:0.5px solid rgba(255,255,255,0.1);border-radius:5px;font-family:inherit">
+      </div>
+      <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Color del objeto</div>
+      <div class="pal-row">
+        ${a.pal.map(c=>`<div class="pcol" style="background:${c}" onclick="selPal(this)"></div>`).join('')}
+      </div>
+    </div>`;
+  } else if(idx===4){
+    // Era V: Ruta A o B
+    const ruta=G.routePick[4];
+    html+=`<div class="tool-area">
+      <div class="tool-lbl">Herramienta de creacion — Narrativa</div>
+      ${ruta===null?`
+        <div style="font-size:10px;font-weight:500;margin-bottom:8px">Elige tu ruta — esta decision no se puede cambiar</div>
+        <div class="route-pick">
+          <button class="rpick" onclick="pickRuta('A')">
+            <div class="rpick-title" style="color:#AFA9EC">Ruta A — Narrativa y UX</div>
+            <div class="rpick-sub">Storyboard de 4 cuadros + mockup de interfaz o pantalla</div>
+          </button>
+          <button class="rpick" onclick="pickRuta('B')">
+            <div class="rpick-title" style="color:#5DCAA5">Ruta B — Animacion</div>
+            <div class="rpick-sub">Storyboard de 3 cuadros + micro-animacion o flipbook</div>
+          </button>
+        </div>`
+      :ruta==='A'?`
+        <div style="font-size:9px;color:#AFA9EC;margin-bottom:8px">Ruta A seleccionada — Narrativa y UX</div>
+        <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Storyboard — 4 cuadros de la historia del personaje</div>
+        <div class="story-grid">
+          ${[1,2,3,4].map(n=>`<div class="sframe" onclick="this.classList.toggle('sel')">
+            <div class="sframe-num">Cuadro ${n}</div>
+            <div class="sframe-area"></div>
+            <div class="sframe-cap"><input type="text" placeholder="Describir escena..." onclick="event.stopPropagation()"></div>
+          </div>`).join('')}
+        </div>
+        <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Mockup de interfaz — tipo de pantalla</div>
+        <select><option>App movil</option><option>Canal de streaming</option><option>Perfil de red social</option><option>Dashboard personal</option><option>Sitio web</option></select>`
+      :`
+        <div style="font-size:9px;color:#5DCAA5;margin-bottom:8px">Ruta B seleccionada — Animacion</div>
+        <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Storyboard — 3 cuadros de la micro-animacion</div>
+        <div class="story-grid">
+          ${[1,2,3].map(n=>`<div class="sframe" onclick="this.classList.toggle('sel')">
+            <div class="sframe-num">Frame ${n}</div>
+            <div class="sframe-area"></div>
+            <div class="sframe-cap"><input type="text" placeholder="Describir frame..." onclick="event.stopPropagation()"></div>
+          </div>`).join('')}
+        </div>
+        <div style="font-size:9px;color:#8888AA;margin-bottom:5px">Tipo de animacion</div>
+        <select><option>Loop de personaje</option><option>Transicion de logo</option><option>Reveal de objeto</option><option>Ambiente del espacio</option><option>Movimiento caracteristico</option></select>`}
+    </div>`;
+  }
+  
+  // BOTONES
+  html+=`<div style="display:flex;gap:6px;margin-top:8px">
+    <button class="btn btn-p" style="flex:1;margin-top:0" onclick="goScr('mapa')">Volver al mapa</button>
+    <button class="btn btn-c" style="flex:2;margin-top:0" onclick="completeEra(${idx})">Guardar y completar era ${['I','II','III','IV','V'][idx]}</button>
+  </div>`;
+  
+  cont.innerHTML=html;
+  
+  // Restore palette selections
+  document.querySelectorAll('.pcol').forEach(d=>{d.classList.remove('sel');});
+}
+
+function answerReto(eraIdx,optIdx,corrIdx){
+  if(G.retoAnswered[eraIdx]) return;
+  G.retoSel[eraIdx]=optIdx;
+  const isCorr=optIdx===corrIdx;
+  if(isCorr){
+    G.retoAnswered[eraIdx]=true;
+    const e=ERAS[eraIdx];
+    gainCreds(e.cr[0],e.cr[1],e.cr[2],e.cr[3]);
+    showToast(`Correcto! +${e.cr[0]+e.cr[1]+e.cr[2]+e.cr[3]} creditos obtenidos`,2000);
+  }
+  renderEra(eraIdx);
+}
+
+function fillMb(i){
+  G.mbFilled[i]=!G.mbFilled[i];
+  renderEra(0);
+}
+function selPal(el){document.querySelectorAll('.pcol').forEach(d=>d.classList.remove('sel'));el.classList.add('sel');}
+function selFig(i){G.retoSel[1]=10+i;renderEra(1);}
+function selPersp(i){G.retoSel[2]=20+i;renderEra(2);}
+function pickRuta(r){G.routePick[4]=r;renderEra(4);}
+function toggleEl(btn){
+  const on=btn.style.color==='#F0F0FF';
+  btn.style.color=on?'#8888AA':'#F0F0FF';
+  btn.style.borderColor=on?'rgba(255,255,255,0.12)':'rgba(255,255,255,0.35)';
+  btn.style.background=on?'#24243A':'rgba(255,255,255,0.06)';
+}
+
+function completeEra(idx){
+  G.eraState[idx]=2;
+  G.eraProgress[idx]=1;
+  const e=ERAS[idx];
+  // Desbloquear siguiente si existe
+  if(idx+1<5&&G.eraState[idx+1]===0) G.eraState[idx+1]=1;
+  // Agregar a entregables
+  const entLabel=['Tarjeta de identidad visual','Figurin de vestuario + keywords','Plano del espacio','Boceto del objeto signature','Narrativa / animacion'];
+  G.entries.push({era:idx,label:entLabel[idx],color:e.color});
+  G.activeEra=idx+1<5?idx+1:idx;
+  showToast(`Era ${['I','II','III','IV','V'][idx]} completada!`,2000);
+  updateEraNodes();
+  // Check si todo completado
+  if(G.eraState.every(s=>s===2)){
+    setTimeout(()=>goScr('diario'),1500);
+  } else {
+    setTimeout(()=>goScr('mapa'),1500);
+  }
+}
+
+function renderInventario(){
+  syncCredUI();
+  const el=document.getElementById('entries-list');
+  if(!el) return;
+  if(G.entries.length===0){el.innerHTML='<div style="font-size:10px;color:#8888AA;padding:6px 0">Ninguna era completada aun...</div>';return;}
+  el.innerHTML=G.entries.map(en=>`
+    <div class="entry" style="border-color:${en.color}44">
+      <div class="entry-check" style="color:${en.color}">✓</div>
+      <div class="entry-info">
+        <div class="entry-title">${en.label}</div>
+        <div class="entry-sub">Era ${['I','II','III','IV','V'][en.era]} completada · PNG disponible</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderLamina(){
+  const grid=document.getElementById('lamina-grid');
+  if(!grid) return;
+  const slots=[
+    {era:0,icon:'🎨',label:'Identidad',sub:'Era I'},
+    {era:1,icon:'👕',label:'Vestuario',sub:'Era II'},
+    {era:2,icon:'🏛',label:'Espacio',sub:'Era III'},
+    {era:3,icon:'⚡',label:'Objeto',sub:'Era IV'},
+    {era:4,icon:'📖',label:'Narrativa',sub:'Era V'},
+    {era:-1,icon:'✨',label:'Arquetipo',sub:'Portada'}
+  ];
+  grid.innerHTML=slots.map(s=>{
+    const done=s.era===-1?!!G.arch:G.eraState[s.era]===2;
+    const color=s.era>=0?ERAS[s.era].color:(G.arch?G.arch.accent:'#8888AA');
+    return `<div class="lslot${done?' placed':''}" style="${done?'border-color:'+color+'66;background:'+color+'0D':''}">
+      <div class="lslot-icon" style="font-size:20px;opacity:${done?1:0.25}">${s.icon}</div>
+      <div class="lslot-lbl" style="color:${done?color:'#8888AA'}">${s.label}</div>
+      <div class="lslot-era">${s.sub}${done?' ✓':''}</div>
+    </div>`;
+  }).join('');
+  const allDone=G.eraState.every(s=>s===2)&&G.arch;
+  const btn=document.getElementById('export-btn');
+  if(btn) btn.style.display=allDone?'block':'none';
+}
+
+function exportarLamina(){
+  showToast('Lamina exportada · El evaluador ha sido notificado',3000);
+}
+
+// Override goScr to also render lamina when needed
+const _goScr=goScr;
+window.goScr=function(id){
+  _goScr(id);
+  if(id==='lamina') renderLamina();
+};
+
+// INIT
+buildArchSlider();
+syncCredUI();
+</script>
