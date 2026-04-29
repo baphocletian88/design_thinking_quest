@@ -58,6 +58,8 @@ html,body{height:100%;background:var(--bg0);color:var(--wh);font-family:var(--fb
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* ───────────────────────────────────────────────────────────── BREAKOUT ROOMS */
+.sala-tab{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--gh);font-size:13px;font-weight:600;font-family:var(--fh);padding:8px 14px 10px;cursor:pointer;letter-spacing:.03em;transition:all .15s;margin-bottom:-1px}
+.sala-tab.on{color:var(--wh);border-bottom-color:var(--pu)}
 .room-banner{background:rgba(31,174,128,.1);border:.5px solid rgba(31,174,128,.3);border-radius:9px;padding:9px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--cy-l)}
 .room-badge{font-family:var(--fm);font-size:13px;padding:3px 10px;border-radius:5px;background:rgba(31,174,128,.2);color:var(--cy-l);font-weight:700;letter-spacing:.1em}
 .room-dot{width:8px;height:8px;border-radius:50%;background:var(--cy);animation:rpulse 2s infinite;flex-shrink:0}
@@ -390,7 +392,123 @@ select.fi{cursor:pointer;-webkit-appearance:none;background-image:url("data:imag
 .btn-sm{padding:11px;font-size:13px}
 .btn-exp{background:rgba(139,127,232,.25);color:var(--pu-l);border:1.5px solid var(--pu);width:auto;padding:10px 22px;font-size:13px;border-radius:8px;cursor:pointer;font-family:var(--fh);font-weight:700;transition:all .18s;display:inline-flex;align-items:center;gap:7px}
 .btn-exp:hover{background:rgba(139,127,232,.38)}
+/* ═══════════════════════════════════════ RESPONSIVE — TABLET ≤768px */
+@media(max-width:768px){
+  #app{grid-template-rows:58px 42px 1fr 52px}
+  .scr{padding:16px 14px}
+  #hud{padding:0 12px;gap:8px}
+  .eco-row{gap:10px}
+  .eco-ico{font-size:12px}
+  .eco-val{font-size:13px}
+  .timer-txt{font-size:18px}
+  .arch-pill-nm{font-size:12px;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #mtrack{padding:0 8px;gap:3px}
+  .mn{width:28px;height:28px;font-size:11px}
+  .mn-fin{width:64px;height:28px;font-size:9px}
+  .mn-line{max-width:16px}
+  #bnav{padding:0 6px;gap:3px}
+  .nb{font-size:10px;height:36px;letter-spacing:0}
+  .pg-title{font-size:22px;margin-bottom:5px}
+  .pg-sub{font-size:14px;margin-bottom:16px}
+  .ac-top{padding:14px;gap:10px;flex-wrap:wrap}
+  .ac-av{width:50px;height:50px;font-size:22px}
+  .ac-col{padding:12px 14px}
+  .mgrid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .dec-opts{grid-template-columns:1fr}
+  .mb-bank{grid-template-columns:repeat(3,1fr);gap:6px}
+  .mb-board{grid-template-columns:repeat(3,1fr);gap:5px}
+  .pal-grid{grid-template-columns:repeat(3,1fr);gap:7px}
+  .bank-grid{grid-template-columns:repeat(4,1fr);gap:5px}
+  .obj-grid{grid-template-columns:repeat(3,1fr);gap:7px}
+  .op-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .sil-system{grid-template-columns:1fr;gap:10px}
+  .tool-block{padding:14px}
+  .team-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+  .sala-tab{padding:7px 10px;font-size:12px}
+  #toast-wrap{top:66px;right:10px;max-width:260px}
+  .toast{font-size:13px;padding:10px 13px}
+  .pm-box{padding:22px;margin:14px}
+}
+
+/* ═══════════════════════════════════════ RESPONSIVE — MOBILE ≤480px */
+@media(max-width:480px){
+  #app{grid-template-rows:54px 38px 1fr 50px}
+  .scr{padding:12px 10px}
+  .eco-lbl{display:none}
+  .eco-row{gap:7px}
+  .eco-ico{font-size:11px}
+  .eco-val{font-size:12px}
+  .eco{gap:3px}
+  .timer-txt{font-size:16px}
+  .arch-pill{display:none}
+  #mtrack{padding:0 4px;gap:2px}
+  .mn{width:24px;height:24px;font-size:10px}
+  .mn-fin{width:56px;height:24px;font-size:8px}
+  .mn-line{max-width:8px}
+  #bnav{padding:0 4px;gap:2px}
+  .nb{font-size:9px;height:34px;border-radius:6px}
+  .pg-title{font-size:18px}
+  .pg-sub{font-size:13px;margin-bottom:12px}
+  .ac-top{padding:10px;gap:8px}
+  .ac-av{width:42px;height:42px;font-size:18px}
+  .mgrid{grid-template-columns:1fr}
+  .mb-bank{grid-template-columns:repeat(3,1fr);gap:5px}
+  .mb-board{grid-template-columns:repeat(3,1fr);gap:4px}
+  .pal-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .bank-grid{grid-template-columns:repeat(3,1fr);gap:4px}
+  .obj-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .op-grid{grid-template-columns:1fr}
+  .dec-opts{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .sil-system{grid-template-columns:1fr}
+  .tool-block{padding:11px;border-radius:9px}
+  .team-grid{grid-template-columns:1fr}
+  .team-card{padding:10px}
+  .sala-tab{padding:6px 8px;font-size:11px}
+  .btn{font-size:13px;padding:13px 10px}
+  .btn-exp{padding:9px 16px;font-size:12px}
+  #toast-wrap{top:62px;right:8px;left:8px;max-width:none}
+  .toast{font-size:12px}
+  .room-banner{flex-wrap:wrap;gap:6px;font-size:12px}
+  .room-badge{font-size:11px;padding:2px 7px}
+  .pm-box{padding:18px;margin:10px;border-radius:12px}
+}
+
+/* Nav icon+label */
+.nb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.nb-ico{font-size:14px;line-height:1}
+.nb-lbl{font-size:10px;line-height:1}
+@media(max-width:480px){
+  .nb-ico{font-size:15px}
+  .nb-lbl{display:none}
+  .nb{height:38px}
+}
+
 </style>
+<!-- Firebase SDK -->
+<script type="module" id="fb-init">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue, remove, off } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBaTBrxfnbYz5edT-SxsG1qGraZhlwTyxQ",
+    authDomain: "creative-quest-udem.firebaseapp.com",
+    databaseURL: "https://creative-quest-udem-default-rtdb.firebaseio.com",
+    projectId: "creative-quest-udem",
+    storageBucket: "creative-quest-udem.firebasestorage.app",
+    messagingSenderId: "8624766338",
+    appId: "1:8624766338:web:3e0e733ce75be13949639b"
+  };
+
+  const fbApp = initializeApp(firebaseConfig);
+  const db = getDatabase(fbApp);
+
+  // Expose Firebase helpers to global scope for use in main script
+  window._fb = { db, ref, set, onValue, remove, off };
+  window._fbReady = true;
+  document.dispatchEvent(new Event('fb-ready'));
+</script>
 </head>
 <body>
 <div id="app">
@@ -506,61 +624,123 @@ select.fi{cursor:pointer;-webkit-appearance:none;background-image:url("data:imag
 <!-- ══ BREAKOUT ROOM SALA ════════════════════════════════════ -->
 <div class="scr" id="s-sala">
   <div class="pg-title">Sala de colaboración</div>
-  <div class="pg-sub">Forma equipo con 3-4 compañeros. Cada quien elige un arquetipo distinto, completa sus misiones y al final combinan sus one-pagers en un universo compartido. El evaluador puede ver el progreso de todo el equipo en tiempo real desde la vista de evaluador.</div>
+  <div class="pg-sub">Conexión en tiempo real entre dispositivos. Cada aplicante trabaja desde su propio dispositivo — el evaluador y el coordinador ven el progreso en vivo.</div>
 
-  <div id="sala-join" style="display:block">
-    <div class="tool-block" style="max-width:500px">
-      <div class="tool-lbl">Crear o unirse a una sala</div>
-      <label class="fl">Tu nombre en la sala</label>
-      <input class="fi" id="sala-name" type="text" placeholder="Ej: Ana García" style="margin-bottom:10px">
-      <label class="fl">Código de sala (4 letras) — créala o pide el código a un compañero</label>
-      <div style="display:flex;gap:8px;margin-bottom:10px">
-        <input class="fi" id="sala-code" type="text" placeholder="Ej: ARTE" maxlength="4" style="margin:0;text-transform:uppercase;font-family:var(--fm);font-size:18px;font-weight:700;flex:1;letter-spacing:.2em">
-        <button class="btn btn-p" onclick="joinSala()" style="width:auto;padding:0 18px;margin:0;font-size:13px">Unirse →</button>
+  <!-- ── TABS ── -->
+  <div style="display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--bd);padding-bottom:0">
+    <button class="sala-tab on" id="stab-aplicante" onclick="setSalaTab('aplicante')">🎮 Aplicante</button>
+    <button class="sala-tab" id="stab-evaluador" onclick="setSalaTab('evaluador')">📋 Evaluador</button>
+    <button class="sala-tab" id="stab-coordinador" onclick="setSalaTab('coordinador')">🗂 Coordinador</button>
+  </div>
+
+  <!-- ── PANEL APLICANTE ── -->
+  <div id="spanel-aplicante" style="display:block">
+    <div id="sala-join" style="display:block">
+      <div class="tool-block" style="max-width:min(500px,100%)">
+        <div class="tool-lbl">Unirse a una sala</div>
+        <label class="fl">Tu nombre</label>
+        <input class="fi" id="sala-name" type="text" placeholder="Ej: Ana García" style="margin-bottom:10px" autocomplete="off">
+        <label class="fl">Código de sala — pídelo al evaluador</label>
+        <div style="display:flex;gap:8px">
+          <input class="fi" id="sala-code" type="text" placeholder="ARTE" maxlength="4"
+            style="margin:0;text-transform:uppercase;font-family:var(--fm);font-size:24px;font-weight:700;flex:1;letter-spacing:.35em;text-align:center">
+          <button class="btn btn-p" onclick="joinSala()" style="width:auto;padding:0 22px;margin:0;font-size:14px">Entrar →</button>
+        </div>
       </div>
-      <button class="btn btn-c" onclick="createSala()" style="margin-top:0">Crear sala nueva con código aleatorio</button>
     </div>
 
-    <div class="tool-block" style="max-width:500px;margin-top:12px">
-      <div class="tool-lbl">Modo evaluador — ver equipo completo</div>
-      <div style="font-size:13px;color:var(--gh);margin-bottom:10px;line-height:1.6">Abre esta opción en una pantalla aparte para observar el progreso de todo el equipo en tiempo real. Ideal para proyectar en la sala durante la prueba.</div>
-      <div style="display:flex;gap:8px">
-        <input class="fi" id="eval-code" type="text" placeholder="Código de sala a observar" maxlength="4" style="margin:0;text-transform:uppercase;font-family:var(--fm);font-size:16px;flex:1;letter-spacing:.15em">
-        <button class="btn btn-g" onclick="openEvalView()" style="width:auto;padding:0 18px;margin:0;font-size:13px">Ver equipo →</button>
+    <div id="sala-active" style="display:none">
+      <div class="room-banner">
+        <div class="room-dot"></div>
+        <span>Conectado · Sala</span>
+        <span class="room-badge" id="sala-code-display"></span>
+        <span id="sala-members-count" style="margin-left:auto;color:var(--cy-l);font-size:12px"></span>
       </div>
+      <div style="font-size:13px;color:var(--gh);line-height:1.6;background:var(--bg2);border:.5px solid var(--bd);border-radius:8px;padding:11px 14px;margin-bottom:14px">
+        El evaluador ve tu progreso en tiempo real. Trabaja en tus misiones normalmente — cada vez que completes una, se actualiza automáticamente.
+      </div>
+      <div class="sec-lbl" style="margin-bottom:10px">Equipo en esta sala</div>
+      <div class="team-grid" id="team-grid"></div>
+      <button class="btn" onclick="leaveSala()" style="max-width:200px;margin-top:4px;background:rgba(200,64,48,.12);border-color:rgba(200,64,48,.35);color:#E87060">Salir de la sala</button>
     </div>
   </div>
 
-  <div id="sala-active" style="display:none">
-    <div class="room-banner">
-      <div class="room-dot"></div>
-      <span>Sala activa:</span>
-      <span class="room-badge" id="sala-code-display"></span>
-      <span id="sala-members-count" style="margin-left:auto;color:var(--gh)"></span>
+  <!-- ── PANEL EVALUADOR ── -->
+  <div id="spanel-evaluador" style="display:none">
+    <div id="eval-join" style="display:block">
+      <div class="tool-block" style="max-width:min(500px,100%)">
+        <div class="tool-lbl">Crear sala y monitorear en vivo</div>
+        <div style="font-size:13px;color:var(--gh);margin-bottom:12px;line-height:1.6">
+          Crea una sala, comparte el código por Zoom y observa el progreso de tu grupo en tiempo real.
+        </div>
+        <button class="btn btn-g" onclick="createAndWatchSala()" style="margin-bottom:12px">+ Crear sala nueva</button>
+        <div style="font-size:12px;color:var(--mu);margin-bottom:8px;text-align:center">— o entra a una sala existente —</div>
+        <div style="display:flex;gap:8px">
+          <input class="fi" id="eval-code" type="text" placeholder="ARTE" maxlength="4"
+            style="margin:0;text-transform:uppercase;font-family:var(--fm);font-size:20px;flex:1;letter-spacing:.25em;text-align:center">
+          <button class="btn btn-c" onclick="openEvalView()" style="width:auto;padding:0 18px;margin:0;font-size:13px">Ver equipo →</button>
+        </div>
+      </div>
     </div>
-    <div class="sec-lbl" style="margin-bottom:10px">Tu equipo — progreso en tiempo real</div>
-    <div class="team-grid" id="team-grid"></div>
-    <div style="font-size:13px;color:var(--gh);line-height:1.6;background:var(--bg2);border:.5px solid var(--bd);border-radius:8px;padding:11px 14px;margin-bottom:12px">
-      <strong style="color:var(--wh)">Cómo funciona:</strong> cada miembro del equipo elige un arquetipo diferente y completa las misiones de forma independiente. Al final, el evaluador ve las 5 tarjetas de arquetipo juntas y evalúa tanto el perfil individual como la coherencia del universo compartido que construyeron entre todos.
+
+    <div id="sala-eval" style="display:none">
+      <div class="room-banner">
+        <div class="room-dot"></div>
+        <span>Vista evaluador · Sala</span>
+        <span class="room-badge" id="eval-code-display"></span>
+        <span id="eval-members-count" style="margin-left:auto;color:var(--cy-l);font-size:12px"></span>
+      </div>
+      <div id="eval-share-banner" style="background:rgba(139,127,232,.1);border:.5px solid rgba(139,127,232,.3);border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:13px;line-height:1.8">
+        <strong style="color:var(--pu-l)">Comparte por Zoom:</strong>
+        código de sala <strong id="eval-code-show" style="font-family:var(--fm);font-size:17px;color:var(--pu-l);letter-spacing:.2em;background:rgba(139,127,232,.15);padding:1px 8px;border-radius:5px"></strong>
+        <span style="color:var(--gh);display:block;margin-top:3px;font-size:12px">Los aplicantes van a "🎮 Aplicante", escriben su nombre y el código.</span>
+      </div>
+      <div id="capacity-bar" style="font-size:12px;color:var(--gh);margin-bottom:10px"></div>
+      <div class="sec-lbl" style="margin-bottom:10px">Panel del equipo — actualización automática</div>
+      <div class="team-grid" id="eval-team-grid"></div>
+      <div class="tool-block" style="margin-top:8px">
+        <div class="tool-lbl">Notas de observación</div>
+        <textarea class="fi" id="colab-notes" placeholder="¿Quién tomó la iniciativa? ¿Cómo resolvieron conflictos de arquetipo? ¿Hay coherencia narrativa entre los universos?" rows="4"></textarea>
+      </div>
+      <button class="btn" onclick="leaveEval()" style="max-width:200px;margin-top:4px;background:rgba(200,64,48,.12);border-color:rgba(200,64,48,.35);color:#E87060">Cerrar sala</button>
     </div>
-    <button class="btn btn-p" onclick="leaveSala()" style="max-width:240px;margin-top:0">Salir de la sala</button>
   </div>
 
-  <div id="sala-eval" style="display:none">
-    <div class="room-banner">
-      <div class="room-dot"></div>
-      <span>Vista evaluador — Sala:</span>
-      <span class="room-badge" id="eval-code-display"></span>
-      <span id="eval-members-count" style="margin-left:auto;color:var(--gh)"></span>
+  <!-- ── PANEL COORDINADOR ── -->
+  <div id="spanel-coordinador" style="display:none">
+    <div class="tool-block" style="max-width:min(620px,100%)">
+      <div class="tool-lbl">🗂 Panel maestro — todas las salas activas</div>
+      <div style="font-size:13px;color:var(--gh);margin-bottom:14px;line-height:1.6">
+        Genera los códigos para todos los equipos de una sesión, monitorea el estado global y limpia salas terminadas.
+      </div>
+
+      <!-- Batch generator -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <label style="font-size:13px;color:var(--wh)">Número de equipos:</label>
+        <input id="batch-n" type="number" min="1" max="20" value="5"
+          style="width:64px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:7px 10px;color:var(--wh);font-size:15px;font-family:var(--fm);text-align:center">
+        <label style="font-size:13px;color:var(--wh)">Máx. por sala:</label>
+        <input id="batch-max" type="number" min="2" max="10" value="6"
+          style="width:64px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;padding:7px 10px;color:var(--wh);font-size:15px;font-family:var(--fm);text-align:center">
+        <button class="btn btn-g" onclick="generateBatchSalas()" style="width:auto;padding:0 18px;margin:0">Generar salas</button>
+      </div>
+
+      <!-- Generated codes display -->
+      <div id="batch-codes" style="display:none;margin-bottom:14px">
+        <div class="tool-lbl" style="margin-bottom:8px">Códigos generados — copia y comparte con cada evaluador</div>
+        <div id="batch-codes-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px"></div>
+        <button class="btn btn-c" onclick="copyAllCodes()" style="margin-top:10px;width:auto;padding:0 16px">📋 Copiar todos</button>
+      </div>
     </div>
-    <div class="sec-lbl" style="margin-bottom:10px">Panel del equipo — actualización automática</div>
-    <div class="team-grid" id="eval-team-grid"></div>
-    <div style="font-size:13px;color:var(--gh);background:var(--bg2);border:.5px solid var(--bd);border-radius:8px;padding:11px 14px;margin-bottom:12px">
-      <strong style="color:var(--wh)">Rúbrica de colaboración:</strong> observa quién lidera, quién propone, quién conecta el trabajo de los demás. La diversidad de arquetipos elegidos dice tanto como los entregables individuales.
-    </div>
-    <div class="tool-block">
-      <div class="tool-lbl">Notas de colaboración — para el evaluador</div>
-      <textarea class="fi" id="colab-notes" placeholder="¿Quién tomó la iniciativa? ¿Cómo resolvieron el conflicto de arquetipos? ¿Hay coherencia narrativa entre los 5 universos? ¿Alguien cedió su primera elección para balancear el equipo?" rows="4"></textarea>
+
+    <!-- Master view of all generated rooms -->
+    <div id="master-panel" style="display:none">
+      <div class="room-banner" style="margin-bottom:14px">
+        <div class="room-dot"></div>
+        <span>Monitor global — <span id="master-active-count">0</span> salas activas</span>
+        <button onclick="refreshMasterPanel()" style="margin-left:auto;background:transparent;border:.5px solid var(--bd);color:var(--gh);border-radius:6px;padding:3px 10px;cursor:pointer;font-size:11px">↻ Actualizar</button>
+      </div>
+      <div id="master-rooms-grid" style="display:flex;flex-direction:column;gap:14px"></div>
     </div>
   </div>
 </div>
@@ -568,13 +748,13 @@ select.fi{cursor:pointer;-webkit-appearance:none;background-image:url("data:imag
 </div><!-- /content -->
 
 <div id="bnav">
-  <button class="nb on" id="nb-select" onclick="goS('select')">Perfil</button>
-  <button class="nb" id="nb-tablero" onclick="goS('tablero')">Tablero</button>
-  <button class="nb" id="nb-mision" onclick="goS('mision')">Misión</button>
-  <button class="nb" id="nb-inventario" onclick="goS('inventario')">Inventario</button>
-  <button class="nb" id="nb-voz" onclick="goS('voz')">Tu Voz</button>
-  <button class="nb" id="nb-onepager" onclick="goS('onepager')">One-Pager</button>
-  <button class="nb" id="nb-sala" onclick="goS('sala')">👥 Sala</button>
+  <button class="nb on" id="nb-select" onclick="goS('select')"><span class="nb-ico">👤</span><span class="nb-lbl">Perfil</span></button>
+  <button class="nb" id="nb-tablero" onclick="goS('tablero')"><span class="nb-ico">🗺</span><span class="nb-lbl">Tablero</span></button>
+  <button class="nb" id="nb-mision" onclick="goS('mision')"><span class="nb-ico">⚡</span><span class="nb-lbl">Misión</span></button>
+  <button class="nb" id="nb-inventario" onclick="goS('inventario')"><span class="nb-ico">💎</span><span class="nb-lbl">Créditos</span></button>
+  <button class="nb" id="nb-voz" onclick="goS('voz')"><span class="nb-ico">🎤</span><span class="nb-lbl">Tu Voz</span></button>
+  <button class="nb" id="nb-onepager" onclick="goS('onepager')"><span class="nb-ico">📄</span><span class="nb-lbl">One-Pager</span></button>
+  <button class="nb" id="nb-sala" onclick="goS('sala')"><span class="nb-ico">👥</span><span class="nb-lbl">Sala</span></button>
 </div>
 </div>
 
@@ -867,12 +1047,14 @@ const G={
   routePick:null,
   storyScenes:['','','',''],
   animType:0,
-  // BREAKOUT ROOMS
+  // BREAKOUT ROOMS — Firebase
   room:null,
   roomRole:null,
   roomName:null,
-  channel:null,
-  teammates:{}
+  teammates:{},
+  _fbUnsub:false,
+  _fbListenCode:null,
+  _roomMax:6
 };
 
 // ═══════════════════════════════════════════ TIMER
@@ -1636,96 +1818,322 @@ function printCard(){
   window.print();
 }
 
-// ═══════════════════════════════════════════ BREAKOUT ROOMS
-function genCode(){return Math.random().toString(36).substr(2,4).toUpperCase();}
+// ═══════════════════════════════════════════ BREAKOUT ROOMS — Firebase v3
+var SALA_MAX_DEFAULT = 6;
 
-function broadcastState(){
-  if(!G.channel||!G.roomName)return;
-  G.channel.postMessage({
-    type:'state',name:G.roomName,
-    arch:G.arch?{name:G.arch.name,icon:G.arch.icon,hex:G.arch.hex,tags:G.arch.tags}:null,
-    mst:[...G.mst],cred:{...G.cred},penalties:G.penalties,done:G.mst.filter(s=>s===3).length
+function genCode(){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var code='';
+  for(var i=0;i<4;i++) code+=chars[Math.floor(Math.random()*chars.length)];
+  return code;
+}
+
+function _fbRef(path){
+  if(!window._fb) return null;
+  return window._fb.ref(window._fb.db, path);
+}
+
+function _waitFbThen(fn){
+  if(window._fbReady){ fn(); return; }
+  document.addEventListener('fb-ready', function handler(){
+    document.removeEventListener('fb-ready',handler);
+    fn();
   });
 }
 
-function createSala(){
-  var name=(document.getElementById('sala-name')?document.getElementById('sala-name').value:'').trim();
-  if(!name){showToast('Escribe tu nombre primero','t-warn');return;}
-  var code=genCode();
-  document.getElementById('sala-code').value=code;
-  joinSalaWith(name,code);
+// Tab switcher
+function setSalaTab(tab){
+  ['aplicante','evaluador','coordinador'].forEach(function(t){
+    var btn=document.getElementById('stab-'+t);
+    var panel=document.getElementById('spanel-'+t);
+    if(btn) btn.classList.toggle('on', t===tab);
+    if(panel) panel.style.display=(t===tab)?'block':'none';
+  });
 }
 
+// State broadcast
+function broadcastState(){
+  if(!G.room||!G.roomName||!window._fb) return;
+  var key=G.roomName.replace(/[.#$\/\[\]]/g,'_');
+  var payload={
+    name:G.roomName, ts:Date.now(),
+    arch:G.arch?{name:G.arch.name,icon:G.arch.icon,hex:G.arch.hex}:null,
+    mst:G.mst.slice(),
+    cred:{v:G.cred.v,f:G.cred.f,n:G.cred.n,t:G.cred.t},
+    penalties:G.penalties,
+    done:G.mst.filter(function(s){return s===3;}).length
+  };
+  window._fb.set(_fbRef('salas/'+G.room+'/members/'+key), payload)
+    .catch(function(e){console.warn('Firebase write:',e);});
+}
+
+// Room listener
+function _attachRoomListener(code){
+  if(G._fbUnsub && G._fbListenCode && window._fb){
+    try{ window._fb.off(_fbRef('salas/'+G._fbListenCode+'/members')); }catch(e){}
+  }
+  G._fbListenCode=code;
+  window._fb.onValue(_fbRef('salas/'+code+'/members'), function(snap){
+    var data=snap.val()||{};
+    G.teammates={};
+    Object.keys(data).forEach(function(k){
+      var m=data[k]; if(m&&m.name) G.teammates[m.name]=m;
+    });
+    _refreshRoomUI();
+  });
+  G._fbUnsub=true;
+}
+
+function _refreshRoomUI(){
+  var activeSala=document.getElementById('sala-active');
+  var evalSection=document.getElementById('sala-eval');
+  if(activeSala&&activeSala.style.display!=='none') renderTeamGrid('team-grid');
+  if(evalSection&&evalSection.style.display!=='none') renderTeamGrid('eval-team-grid');
+  var count=Object.keys(G.teammates).length;
+  var max=G._roomMax||SALA_MAX_DEFAULT;
+  var txt=count+'/'+max+' miembro'+(count!==1?'s':'');
+  var sc=document.getElementById('sala-members-count');
+  var ec=document.getElementById('eval-members-count');
+  var cb=document.getElementById('capacity-bar');
+  if(sc)sc.textContent=txt;
+  if(ec)ec.textContent=txt;
+  if(cb){
+    var pct=Math.round((count/max)*100);
+    var col=count>=max?'var(--co)':count>=(max-1)?'var(--go)':'var(--cy)';
+    cb.innerHTML='<div style="display:flex;align-items:center;gap:8px;font-size:12px">'+
+      '<span style="color:'+col+'">'+count+'/'+max+' lugares</span>'+
+      '<div style="flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden">'+
+        '<div style="height:100%;width:'+pct+'%;background:'+col+';border-radius:3px;transition:width .4s"></div>'+
+      '</div>'+
+      (count>=max?'<span style="color:var(--co);font-weight:700">LLENA</span>':'')+
+    '</div>';
+  }
+}
+
+function _detachListener(){
+  if(G._fbUnsub && G._fbListenCode && window._fb){
+    try{ window._fb.off(_fbRef('salas/'+G._fbListenCode+'/members')); }catch(e){}
+  }
+  G._fbUnsub=false; G._fbListenCode=null;
+}
+
+// APLICANTE
 function joinSala(){
   var name=(document.getElementById('sala-name')?document.getElementById('sala-name').value:'').trim();
   var code=(document.getElementById('sala-code')?document.getElementById('sala-code').value:'').trim().toUpperCase();
   if(!name){showToast('Escribe tu nombre primero','t-warn');return;}
-  if(code.length!==4){showToast('El código debe tener 4 letras','t-warn');return;}
-  joinSalaWith(name,code);
+  if(code.length!==4){showToast('El codigo debe tener 4 letras','t-warn');return;}
+  _waitFbThen(function(){
+    window._fb.onValue(_fbRef('salas/'+code+'/meta'), function(snap){
+      window._fb.off(_fbRef('salas/'+code+'/meta'));
+      var meta=snap.val()||{};
+      var max=meta.max||SALA_MAX_DEFAULT;
+      G._roomMax=max;
+      window._fb.onValue(_fbRef('salas/'+code+'/members'), function(msnap){
+        window._fb.off(_fbRef('salas/'+code+'/members'));
+        var members=msnap.val()||{};
+        var count=Object.keys(members).length;
+        var myKey=name.replace(/[.#$\/\[\]]/g,'_');
+        var alreadyIn=!!members[myKey];
+        if(!alreadyIn && count>=max){
+          showToast('Sala '+code+' llena ('+max+'/'+max+'). Pide otro codigo.','t-warn');
+          return;
+        }
+        _doJoinSala(name, code);
+      },{onlyOnce:true});
+    },{onlyOnce:true});
+  });
 }
 
-function joinSalaWith(name,code){
-  if(G.channel)G.channel.close();
-  G.room=code;G.roomName=name;G.roomRole='player';
-  G.channel=new BroadcastChannel('cq_sala_'+code);
-  G.channel.onmessage=onRoomMsg;
+function _doJoinSala(name, code){
+  G.room=code; G.roomName=name; G.roomRole='player';
   document.getElementById('sala-code-display').textContent=code;
   document.getElementById('sala-join').style.display='none';
   document.getElementById('sala-active').style.display='block';
-  document.getElementById('sala-eval').style.display='none';
-  G.teammates={};
+  _attachRoomListener(code);
   broadcastState();
-  renderTeamGrid('team-grid');
-  showToast('¡Sala '+code+' activa! Comparte el código con tu equipo','t-ok');
-}
-
-function openEvalView(){
-  var code=(document.getElementById('eval-code')?document.getElementById('eval-code').value:'').trim().toUpperCase();
-  if(code.length!==4){showToast('Ingresa un código de 4 letras','t-warn');return;}
-  if(G.channel)G.channel.close();
-  G.room=code;G.roomRole='evaluator';
-  G.channel=new BroadcastChannel('cq_sala_'+code);
-  G.channel.onmessage=onRoomMsg;
-  document.getElementById('eval-code-display').textContent=code;
-  document.getElementById('sala-join').style.display='none';
-  document.getElementById('sala-active').style.display='none';
-  document.getElementById('sala-eval').style.display='block';
-  G.teammates={};
-  G.channel.postMessage({type:'ping',from:'evaluator'});
-  renderTeamGrid('eval-team-grid');
-  showToast('Vista evaluador activa — Sala '+code,'t-ok');
-}
-
-function onRoomMsg(evt){
-  var d=evt.data;
-  if(!d)return;
-  if(d.type==='ping'){
-    if(G.roomRole==='player')broadcastState();
-    return;
-  }
-  if(d.type==='state'&&d.name){
-    G.teammates[d.name]=d;
-    var activeSala=document.getElementById('sala-active');
-    var evalGrid=document.getElementById('eval-team-grid');
-    if(activeSala&&activeSala.style.display!=='none')renderTeamGrid('team-grid');
-    if(evalGrid)renderTeamGrid('eval-team-grid');
-    var count=Object.keys(G.teammates).length;
-    var sc=document.getElementById('sala-members-count');
-    var ec=document.getElementById('eval-members-count');
-    var txt=count+' miembro'+(count!==1?'s':'')+' conectado'+(count!==1?'s':'');
-    if(sc)sc.textContent=txt;
-    if(ec)ec.textContent=txt;
-  }
+  showToast('Sala '+code+' conectado!','t-ok');
 }
 
 function leaveSala(){
-  if(G.channel)G.channel.close();
-  G.channel=null;G.room=null;G.roomName=null;G.roomRole=null;G.teammates={};
+  if(G.room&&G.roomName&&window._fb){
+    var key=G.roomName.replace(/[.#$\/\[\]]/g,'_');
+    window._fb.remove(_fbRef('salas/'+G.room+'/members/'+key)).catch(function(){});
+  }
+  _detachListener();
+  G.room=null; G.roomName=null; G.roomRole=null; G.teammates={};
   document.getElementById('sala-join').style.display='block';
   document.getElementById('sala-active').style.display='none';
   showToast('Saliste de la sala','t-warn');
 }
 
+// EVALUADOR
+function createAndWatchSala(){
+  _waitFbThen(function(){
+    var code=genCode();
+    var max=6;
+    window._fb.set(_fbRef('salas/'+code+'/meta'),{max:max,created:Date.now()}).catch(function(){});
+    _openEvalPanel(code, max);
+    showToast('Sala '+code+' creada — comparte el codigo por Zoom','t-ok');
+  });
+}
+
+function openEvalView(){
+  var code=(document.getElementById('eval-code')?document.getElementById('eval-code').value:'').trim().toUpperCase();
+  if(code.length!==4){showToast('Ingresa un codigo de 4 letras','t-warn');return;}
+  _waitFbThen(function(){
+    window._fb.onValue(_fbRef('salas/'+code+'/meta'), function(snap){
+      window._fb.off(_fbRef('salas/'+code+'/meta'));
+      var meta=snap.val()||{};
+      var max=meta.max||SALA_MAX_DEFAULT;
+      _openEvalPanel(code, max);
+      showToast('Vista evaluador - Sala '+code,'t-ok');
+    },{onlyOnce:true});
+  });
+}
+
+function _openEvalPanel(code, max){
+  G.room=code; G.roomRole='evaluator'; G._roomMax=max;
+  document.getElementById('eval-code-display').textContent=code;
+  var showEl=document.getElementById('eval-code-show');
+  if(showEl)showEl.textContent=code;
+  document.getElementById('eval-join').style.display='none';
+  document.getElementById('sala-eval').style.display='block';
+  G.teammates={};
+  _attachRoomListener(code);
+  renderTeamGrid('eval-team-grid');
+}
+
+function leaveEval(){
+  _detachListener();
+  G.room=null; G.roomRole=null; G.teammates={};
+  document.getElementById('eval-join').style.display='block';
+  document.getElementById('sala-eval').style.display='none';
+  showToast('Cerraste la vista de evaluador','t-warn');
+}
+
+// COORDINADOR - Batch
+var G_batchCodes=[];
+
+function generateBatchSalas(){
+  var n=parseInt(document.getElementById('batch-n').value)||5;
+  var max=parseInt(document.getElementById('batch-max').value)||6;
+  if(n<1||n>20){showToast('Entre 1 y 20 equipos','t-warn');return;}
+  if(max<2||max>10){showToast('Entre 2 y 10 por sala','t-warn');return;}
+  _waitFbThen(function(){
+    G_batchCodes=[];
+    var used={};
+    while(G_batchCodes.length<n){
+      var c=genCode();
+      if(!used[c]){used[c]=true;G_batchCodes.push(c);}
+    }
+    G_batchCodes.forEach(function(code){
+      window._fb.set(_fbRef('salas/'+code+'/meta'),{max:max,created:Date.now()}).catch(function(){});
+    });
+    _renderBatchCodes(max);
+    _startMasterPanel();
+    showToast(n+' salas generadas (max. '+max+' c/u)','t-ok');
+  });
+}
+
+function _renderBatchCodes(max){
+  var grid=document.getElementById('batch-codes-grid');
+  var wrap=document.getElementById('batch-codes');
+  if(!grid||!wrap)return;
+  wrap.style.display='block';
+  grid.innerHTML=G_batchCodes.map(function(code,i){
+    return '<div style="background:var(--bg3);border:1px solid var(--bd);border-radius:9px;padding:12px;text-align:center">'+
+      '<div style="font-size:10px;color:var(--gh);font-family:var(--fh);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Equipo '+(i+1)+'</div>'+
+      '<div style="font-family:var(--fm);font-size:22px;font-weight:700;letter-spacing:.3em;color:var(--wh);margin-bottom:5px">'+code+'</div>'+
+      '<div style="font-size:11px;color:var(--mu)">max. '+max+' personas</div>'+
+      '<button onclick="copyCode(\''+code+'\')" style="margin-top:7px;background:transparent;border:.5px solid var(--bd);color:var(--gh);border-radius:5px;padding:3px 9px;cursor:pointer;font-size:11px">Copiar</button>'+
+    '</div>';
+  }).join('');
+}
+
+function copyCode(code){
+  navigator.clipboard.writeText(code).then(function(){
+    showToast('Codigo '+code+' copiado','t-ok');
+  }).catch(function(){showToast(code,'t-ok');});
+}
+
+function copyAllCodes(){
+  var text=G_batchCodes.map(function(c,i){return 'Equipo '+(i+1)+': '+c;}).join('\n');
+  navigator.clipboard.writeText(text).then(function(){
+    showToast('Todos los codigos copiados','t-ok');
+  }).catch(function(){showToast('Copia: '+G_batchCodes.join(', '),'t-ok');});
+}
+
+// COORDINADOR - Master panel
+var G_masterListeners={};
+
+function _startMasterPanel(){
+  var panel=document.getElementById('master-panel');
+  if(panel) panel.style.display='block';
+  Object.keys(G_masterListeners).forEach(function(code){
+    try{ window._fb.off(_fbRef('salas/'+code+'/members')); }catch(e){}
+  });
+  G_masterListeners={};
+  G_batchCodes.forEach(function(code){
+    G_masterListeners[code]={members:{}};
+    window._fb.onValue(_fbRef('salas/'+code+'/members'), function(snap){
+      G_masterListeners[code].members=snap.val()||{};
+      _renderMasterPanel();
+    });
+  });
+}
+
+function refreshMasterPanel(){
+  _renderMasterPanel();
+  showToast('Panel actualizado','t-ok');
+}
+
+function _renderMasterPanel(){
+  var grid=document.getElementById('master-rooms-grid');
+  var countEl=document.getElementById('master-active-count');
+  if(!grid)return;
+  var activeSalas=0;
+  var mColors=['#8B7FE8','#1FAE80','#D4960A','#C84030','#C0308A'];
+  var mNames=['ID','Look','Esp','Obj','Hist'];
+  grid.innerHTML=G_batchCodes.map(function(code,idx){
+    var data=G_masterListeners[code]?G_masterListeners[code].members:{};
+    var members=Object.values(data).filter(function(m){return m&&m.name;});
+    if(members.length>0) activeSalas++;
+    var membersHtml=members.length===0?
+      '<span style="font-size:12px;color:var(--mu)">Sin conexiones aun</span>':
+      members.map(function(m){
+        var hex=(m.arch&&m.arch.hex)||'#8888AA';
+        var mst=m.mst||[0,0,0,0,0];
+        var dots=mst.map(function(st,i){
+          return '<span style="display:inline-block;width:14px;height:14px;border-radius:3px;'+
+            'background:'+(st===3?mColors[i]+'33':'rgba(255,255,255,.06)')+';'+
+            'border:1px solid '+(st===3?mColors[i]:'rgba(255,255,255,.1)')+';'+
+            'font-size:8px;text-align:center;line-height:14px;'+
+            'color:'+(st===3?mColors[i]:'var(--mu)')+'" title="'+mNames[i]+'">'+(st===3?'v':'.')+
+          '</span>';
+        }).join('');
+        return '<div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:.5px solid var(--bd)">'+
+          '<span style="font-size:15px">'+((m.arch&&m.arch.icon)||'?')+'</span>'+
+          '<span style="font-size:12px;font-weight:600;color:'+hex+';min-width:90px">'+m.name+'</span>'+
+          '<div style="display:flex;gap:2px">'+dots+'</div>'+
+          '<span style="font-size:11px;color:var(--gh);margin-left:auto">'+(m.done||0)+'/5</span>'+
+        '</div>';
+      }).join('');
+    var hasMem=members.length>0;
+    return '<div style="background:var(--bg2);border:1px solid '+(hasMem?'rgba(31,174,128,.3)':'var(--bd)')+';border-radius:10px;padding:13px">'+
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
+        '<span style="font-size:10px;color:var(--gh);font-family:var(--fh);text-transform:uppercase">Equipo '+(idx+1)+'</span>'+
+        '<span style="font-family:var(--fm);font-size:14px;font-weight:700;letter-spacing:.2em;color:var(--wh)">'+code+'</span>'+
+        '<span style="margin-left:auto;font-size:11px;color:'+(hasMem?'var(--cy-l)':'var(--mu)')+'">'+
+          members.length+' conectado'+(members.length!==1?'s':'')+
+        '</span>'+
+      '</div>'+membersHtml+
+    '</div>';
+  }).join('');
+  if(countEl) countEl.textContent=activeSalas;
+}
+
+// Shared render
 function renderTeamGrid(gridId){
   var grid=document.getElementById(gridId);
   if(!grid)return;
@@ -1735,44 +2143,51 @@ function renderTeamGrid(gridId){
     var selfDone=G.mst.filter(function(s){return s===3;}).length;
     var selfEntry={name:G.roomName,
       arch:G.arch?{name:G.arch.name,icon:G.arch.icon,hex:G.arch.hex}:null,
-      mst:G.mst.slice(),cred:Object.assign({},G.cred),penalties:G.penalties,done:selfDone,isSelf:true};
+      mst:G.mst.slice(),cred:Object.assign({},G.cred),
+      penalties:G.penalties,done:selfDone,isSelf:true};
     allMembers=allMembers.filter(function(m){return m.name!==G.roomName;});
     allMembers.unshift(selfEntry);
   }
   if(!allMembers.length){
-    grid.innerHTML='<div style="font-size:14px;color:var(--gh);padding:8px 0;grid-column:span 3">Esperando que se conecten los miembros del equipo... Comparte el código de sala.</div>';
+    grid.innerHTML='<div style="font-size:14px;color:var(--gh);padding:10px 0;grid-column:1/-1">'+
+      (G.roomRole==='evaluator'?'Esperando que los aplicantes se conecten con el codigo de sala...':'Esperando a tus companeros...')+
+    '</div>';
     return;
   }
   var mNames=['Identidad','Look','Espacio','Objeto','Historia'];
   var mColors=['#8B7FE8','#1FAE80','#D4960A','#C84030','#C0308A'];
   grid.innerHTML=allMembers.map(function(m){
-    var hex=m.arch&&m.arch.hex?m.arch.hex:'#8888AA';
-    var icon=m.arch&&m.arch.icon?m.arch.icon:'?';
-    var archName=m.arch&&m.arch.name?m.arch.name:'Sin arquetipo';
+    var hex=(m.arch&&m.arch.hex)||'#8888AA';
+    var icon=(m.arch&&m.arch.icon)||'?';
+    var archName=(m.arch&&m.arch.name)||'Sin arquetipo';
     var done=m.done||0;
     var mstArr=m.mst||[0,0,0,0,0];
     var progDots=mstArr.map(function(st,i){
-      return '<div class="team-pd" style="background:'+(st===3?mColors[i]+'22':st===2?mColors[i]+'11':'rgba(255,255,255,.03)')+
-        ';border-color:'+(st===3?mColors[i]:st===2?mColors[i]+'66':'rgba(255,255,255,.1)')+
-        ';color:'+(st===3?mColors[i]:'var(--mu)')+'\" title="'+mNames[i]+'">'+(st===3?'✓':st===2?'…':'○')+'</div>';
+      return '<div class="team-pd" style="'+
+        'background:'+(st===3?mColors[i]+'22':st===2?mColors[i]+'11':'rgba(255,255,255,.03)')+';'+
+        'border-color:'+(st===3?mColors[i]:st===2?mColors[i]+'66':'rgba(255,255,255,.1)')+';'+
+        'color:'+(st===3?mColors[i]:'var(--mu)')+
+        '" title="'+mNames[i]+'">'+(st===3?'v':st===2?'...':'o')+'</div>';
     }).join('');
-    return '<div class="team-card" style="border-color:'+hex+'44'+(m.isSelf?';border-width:2px':'')+'">' +
+    return '<div class="team-card" style="border-color:'+hex+(m.isSelf?';border-width:2px':'44')+'">'+
       '<div class="team-card-hdr">'+
         '<div class="team-card-av" style="background:'+hex+'20;border-color:'+hex+'">'+icon+'</div>'+
         '<div>'+
-          '<div class="team-card-name">'+m.name+(m.isSelf?' (tú)':'')+'</div>'+
+          '<div class="team-card-name">'+m.name+(m.isSelf?' <span style="font-size:10px;opacity:.5">(tu)</span>':'')+'</div>'+
           '<div class="team-card-arch" style="color:'+hex+'">'+archName+'</div>'+
         '</div>'+
       '</div>'+
       '<div class="team-prog">'+progDots+'</div>'+
       '<div class="team-creds">'+
-        '<span class="team-cred" style="background:var(--pu-x);color:var(--pu-l)">◆'+(m.cred&&m.cred.v?m.cred.v:0)+'</span>'+
-        '<span class="team-cred" style="background:var(--cy-x);color:var(--cy-l)">⬡'+(m.cred&&m.cred.f?m.cred.f:0)+'</span>'+
-        '<span class="team-cred" style="background:var(--go-x);color:var(--go-l)">★'+(m.cred&&m.cred.n?m.cred.n:0)+'</span>'+
-        '<span class="team-cred" style="background:var(--gr-x);color:var(--gr-l)">⬟'+(m.cred&&m.cred.t?m.cred.t:0)+'</span>'+
+        '<span class="team-cred" style="background:var(--pu-x);color:var(--pu-l)">'+String.fromCodePoint(9670)+((m.cred&&m.cred.v)||0)+'</span>'+
+        '<span class="team-cred" style="background:var(--cy-x);color:var(--cy-l)">'+String.fromCodePoint(11041)+((m.cred&&m.cred.f)||0)+'</span>'+
+        '<span class="team-cred" style="background:var(--go-x);color:var(--go-l)">'+String.fromCodePoint(9733)+((m.cred&&m.cred.n)||0)+'</span>'+
+        '<span class="team-cred" style="background:var(--gr-x);color:var(--gr-l)">'+String.fromCodePoint(11039)+((m.cred&&m.cred.t)||0)+'</span>'+
       '</div>'+
-      '<div style="font-size:11px;color:var(--gh);margin-top:6px">'+done+'/5 misiones'+(m.penalties>0?' · ⚠'+m.penalties+' pen.':'')+
-      '</div></div>';
+      '<div style="font-size:11px;color:var(--gh);margin-top:6px">'+done+'/5 misiones'+
+        (m.penalties>0?' <span style="color:var(--co)">'+m.penalties+' pen.</span>':'')+
+      '</div>'+
+    '</div>';
   }).join('');
 }
 
