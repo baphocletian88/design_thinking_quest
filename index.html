@@ -485,6 +485,23 @@ select.fi{cursor:pointer;-webkit-appearance:none;background-image:url("data:imag
   .nb{height:38px}
 }
 
+/* Text fit in small containers */
+.mb-slot{overflow:hidden}
+.mb-empty-txt{font-size:10px;color:var(--mu);text-align:center;line-height:1.4;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+.sf-area{word-break:break-word;hyphens:auto}
+.route-t{font-size:13px;font-weight:700;font-family:var(--fh);line-height:1.3;margin-bottom:4px;word-break:break-word}
+.route-s{font-size:12px;color:var(--gh);line-height:1.5;word-break:break-word}
+.route-gain{display:inline-block;font-size:10px;padding:2px 8px;border-radius:5px;margin-top:6px;font-family:var(--fm);font-weight:600}
+.bank-img{overflow:hidden}
+.bank-img div span:last-child{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Obj grid items text */
+.obj-card{overflow:hidden}
+.obj-lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-size:10px}
+/* Space grid */
+.sp-card{overflow:hidden}
+/* Upload slot label */
+.mb-slot label span{word-break:break-word;hyphens:auto}
+
 </style>
 <!-- Firebase SDK -->
 <script type="module" id="fb-init">
@@ -1030,6 +1047,7 @@ const G={
   bankTab:[0,0,0,0,0],
   // M1 state
   mbBoard:[null,null,null,null,null,null],
+  m5imgs:[null,null,null,null],
   mbSelected:null,
   selectedPal:null,
   // M2 state
@@ -1316,48 +1334,29 @@ function buildTool(idx,m,a){
   h+=`<div class="tool-lbl" style="color:${ac}">Herramienta — ${m.disc}</div>`;
 
   if(idx===0){
-    // Banco visual
-    const prem=G.premiumUnlocked[0];
-    const tab=G.bankTab[0];
-    const imgs=tab===0?MB_IMAGES.free:MB_IMAGES.premium;
-    h+='<div class="bank-header">'+
-      '<span class="bank-title">Banco visual de referencias</span>'+
-      '<div class="bank-toggle">'+
-        '<button class="bank-tab'+(tab===0?' on':'')+'" onclick="setTab(0,0)">Gratis ('+MB_IMAGES.free.length+')</button>'+
-        '<button class="bank-tab'+(tab===1?' on':'')+'" '+((!prem)?'style="opacity:.5"':'')+' onclick="'+(prem?'setTab(0,1)':'showToast(\'Desbloquea el banco premium con ◆◆\',\'t-warn\')')+'">'+(prem?'★ Premium':'★ Premium')+' ('+MB_IMAGES.premium.length+')</button>'+
-      '</div>'+
-    '</div>'+
-    '<div class="bank-grid">';
-    imgs.forEach(function(img){
-      var locked=!prem&&tab===1;
-      var sel=isImgInBoard(img.id);
-      h+='<div class="bank-img'+(locked?' bank-locked':'')+(sel?' sel':'')+'" '+
-        (locked?'onclick="showToast(\'Desbloquea el banco premium con ◆◆\',\'t-warn\')"':'onclick="bankClick(\''+img.id+'\')"')+
-        ' style="cursor:pointer">'+
-        '<div style="width:100%;height:100%;background:'+img.g+';display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:6px;position:relative">'+
-        '<span style="font-size:26px;line-height:1">'+img.ico+'</span>'+
-        '<span style="font-size:9px;font-weight:700;color:white;font-family:var(--fh);text-shadow:0 1px 4px rgba(0,0,0,.8);text-align:center;padding:0 2px">'+img.lbl+'</span>'+
-        (sel?'<div style="position:absolute;top:4px;right:4px;background:var(--pu);color:white;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;line-height:1">✓</div>':'')+
-        (tab===1&&prem?'<span class="prem-badge">★</span>':'')+
-        '</div></div>';
-    });
-    h+='</div>';
-    h+='<div class="sec-lbl" style="margin-bottom:8px">Tu moodboard — arrastra o haz clic para colocar (máx. 6)</div>'+
-    '<div class="mb-board">';
-    G.mbBoard.forEach(function(slot,i){
-      h+='<div class="mb-slot'+(slot?' filled':'')+'" onclick="removeFromBoard('+i+')">';
-      if(slot){
-        h+='<div style="width:100%;height:100%;background:'+(slot.g||'var(--bg3)')+';display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:6px">'+
-          '<span style="font-size:24px">'+(slot.ico||'🖼')+'</span>'+
-          '<span style="font-size:8px;font-weight:700;color:white;text-shadow:0 1px 3px rgba(0,0,0,.8)">'+(slot.lbl||'')+'</span>'+
-          '</div>'+
-          '<button class="sl-rm" onclick="event.stopPropagation();removeFromBoard('+i+')">✕</button>';
+    // Moodboard — subida de imágenes propias (6 slots)
+    h+='<div style="font-size:13px;color:var(--gh);line-height:1.6;background:var(--bg2);border:.5px solid var(--bd);border-radius:8px;padding:11px 14px;margin-bottom:14px">'+
+      '<strong style="color:var(--wh)">Tu moodboard personal</strong> — Sube hasta 6 imágenes de tu propia colección: fotos, capturas, recortes digitales o ilustraciones que representen la identidad visual de tu personaje.'+
+    '</div>';
+    h+='<div class="mb-board" style="margin-bottom:14px">';
+    for(var _si=0;_si<6;_si++){
+      var _slot=G.mbBoard[_si];
+      h+='<div class="mb-slot'+(_slot?' filled':'')+'" style="cursor:default;position:relative">';
+      if(_slot&&_slot.dataUrl){
+        h+='<img src="'+_slot.dataUrl+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:6px">'+
+          '<button class="sl-rm" onclick="mbRemove('+_si+')">✕</button>'+
+          '<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.55);border-radius:0 0 6px 6px;padding:3px 5px;font-size:9px;color:rgba(255,255,255,.85);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center">'+(_slot.lbl||'')+'</div>';
       } else {
-        h+='<div class="mb-empty-txt">+<br>clic en imagen de arriba</div>';
+        h+='<label style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:5px">'+
+          '<span style="font-size:22px">📷</span>'+
+          '<span style="font-size:9px;color:var(--mu);text-align:center;line-height:1.3">Subir<br>imagen</span>'+
+          '<input type="file" accept="image/*" style="display:none" onchange="mbUpload(event,'+_si+')">'+
+          '</label>';
       }
       h+='</div>';
-    });
+    }
     h+='</div>';
+    h+='<div style="font-size:11px;color:var(--mu);margin-bottom:14px">Formatos: JPG, PNG, GIF, WEBP · Max. 5 MB por imagen</div>';
 
     // Paletas
     h+=`<div class="sec-lbl">Paleta de color — elige la que mejor represente a tu personaje</div>
@@ -1543,13 +1542,37 @@ function buildTool(idx,m,a){
         <label class="fl">¿Por qué este formato es el correcto para ${archN}?</label>
         <textarea class="fi" placeholder="Razona tu elección: ¿qué tiene este medio que ningún otro le daría a este personaje?" rows="3"></textarea>`;
       } else {
+        // Rutas C y D
         h+=`<label class="fl">Tipo de ${ruta===2?'contenido editorial':'experiencia'}</label>
         <select class="fi">${ruta===2?'<option>Editorial de revista</option><option>Zine independiente</option><option>Newsletter visual</option><option>Lookbook</option>':'<option>Experiencia inmersiva</option><option>Pop-up / exhibit</option><option>Instalación artística</option><option>Híbrida digital-física</option>'}</select>
         <label class="fl">Concepto en una frase</label>
-        <input class="fi" type="text" placeholder="El concepto que rige todo...">`;
+        <input class="fi" type="text" placeholder="El concepto que rige todo...">
+        <label class="fl">¿Por qué este formato es el correcto para tu personaje?</label>
+        <textarea class="fi" placeholder="Razona tu elección de medio..." rows="3"></textarea>`;
       }
-      h+=`<label class="fl">¿Por qué este formato es el correcto para tu personaje?</label>
-      <textarea class="fi" placeholder="Razona tu elección de medio..." rows="3"></textarea>`;
+      // Upload de desarrollo — aplica a TODAS las rutas
+      h+=`<div style="margin-top:14px;background:var(--bg2);border:.5px solid var(--bd);border-radius:10px;padding:14px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:6px">Sube tus imágenes de desarrollo</div>
+        <div style="font-size:13px;color:var(--gh);margin-bottom:12px;line-height:1.6">Sube las imágenes que desarrollaste para esta misión: bocetos, storyboard fotografiado, collage digital, layouts o cualquier material visual de apoyo. Estas imágenes se mostrarán en tu ficha final.</div>
+        <div class="mb-board" id="m5-upload-board" style="margin-bottom:8px">` +
+          Array.from({length:4},function(_,i){
+            var sl=G.m5imgs&&G.m5imgs[i];
+            return '<div class="mb-slot'+(sl?' filled':'')+'" style="cursor:default;position:relative">'+
+              (sl?
+                '<img src="'+sl.dataUrl+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:6px">'+
+                '<button class="sl-rm" onclick="m5Remove('+i+')">✕</button>'+
+                '<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.55);border-radius:0 0 6px 6px;padding:3px 5px;font-size:9px;color:rgba(255,255,255,.85);text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(sl.lbl||'')+'</div>'
+                :
+                '<label style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:5px">'+
+                '<span style="font-size:22px">📎</span>'+
+                '<span style="font-size:9px;color:var(--mu);text-align:center;line-height:1.3">Subir<br>imagen</span>'+
+                '<input type="file" accept="image/*" style="display:none" onchange="m5Upload(event,'+i+')">'+
+                '</label>'
+              )+'</div>';
+          }).join('') +
+        `</div>
+        <div style="font-size:11px;color:var(--mu)">Formatos: JPG, PNG, GIF, WEBP · Max. 5 MB por imagen · Hasta 4 imágenes</div>
+      </div>`;
     }
   }
   h+=`</div>`;
@@ -1598,6 +1621,36 @@ function bankClick(id){
   G.mbBoard[emptyIdx]=img;renderMission(G.mActive);
 }
 function removeFromBoard(i){G.mbBoard[i]=null;renderMission(G.mActive);}
+
+// M1 image upload helpers
+function mbUpload(evt,idx){
+  var file=evt.target.files&&evt.target.files[0];
+  if(!file)return;
+  if(file.size>5*1024*1024){showToast('Imagen muy grande. Máx. 5 MB.','t-warn');return;}
+  var reader=new FileReader();
+  reader.onload=function(e){
+    G.mbBoard[idx]={dataUrl:e.target.result,lbl:file.name.replace(/\.[^.]+$/,'').substring(0,22)};
+    renderMission(G.mActive);
+  };
+  reader.readAsDataURL(file);
+}
+function mbRemove(i){G.mbBoard[i]=null;renderMission(G.mActive);}
+
+// M5 image upload helpers
+function m5Upload(evt,idx){
+  var file=evt.target.files&&evt.target.files[0];
+  if(!file)return;
+  if(file.size>5*1024*1024){showToast('Imagen muy grande. Máx. 5 MB.','t-warn');return;}
+  var reader=new FileReader();
+  reader.onload=function(e){
+    if(!G.m5imgs)G.m5imgs=[null,null,null,null];
+    G.m5imgs[idx]={dataUrl:e.target.result,lbl:file.name.replace(/\.[^.]+$/,'').substring(0,22)};
+    renderMission(G.mActive);
+  };
+  reader.readAsDataURL(file);
+}
+function m5Remove(i){if(G.m5imgs)G.m5imgs[i]=null;renderMission(G.mActive);}
+
 function selPal(pi){G.selectedPal=pi;renderMission(G.mActive);}
 
 // M2
@@ -1771,6 +1824,24 @@ function renderOP(){
       </div>
     </div>
 
+    <!-- MOODBOARD M1 — imágenes subidas -->
+    ${G.mbBoard.some(function(s){return s&&s.dataUrl;})?`
+    <div style="border-top:.5px solid rgba(255,255,255,.08);padding:10px 14px">
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:8px">Moodboard — Misión 1</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px">
+        ${G.mbBoard.filter(function(s){return s&&s.dataUrl;}).map(function(s){return '<div style="aspect-ratio:1;border-radius:5px;overflow:hidden;position:relative"><img src="'+s.dataUrl+'" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);font-size:8px;color:rgba(255,255,255,.8);padding:2px 4px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap">'+s.lbl+'</div></div>';}).join('')}
+      </div>
+    </div>`:``}
+
+    <!-- IMÁGENES M5 — desarrollo de historia -->
+    ${G.m5imgs&&G.m5imgs.some(function(s){return s&&s.dataUrl;})?`
+    <div style="border-top:.5px solid rgba(255,255,255,.08);padding:10px 14px">
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:8px">Desarrollo visual — Misión 5</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:5px">
+        ${G.m5imgs.filter(function(s){return s&&s.dataUrl;}).map(function(s){return '<div style="aspect-ratio:16/9;border-radius:5px;overflow:hidden;position:relative"><img src="'+s.dataUrl+'" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);font-size:8px;color:rgba(255,255,255,.8);padding:2px 4px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap">'+s.lbl+'</div></div>';}).join('')}
+      </div>
+    </div>`:``}
+
     <!-- FRASE + VOZ -->
     ${frase?`<div class="ace-phrase" style="margin:0;border-top:.5px solid rgba(255,255,255,.08);padding:10px 14px"><div class="ace-phrase-lbl">Frase del universo</div><div class="ace-phrase-txt">"${frase}"</div></div>`:''}
     <div class="ace-voz" style="border-top:.5px solid rgba(255,255,255,.08);padding:10px 14px;margin:0">
@@ -1780,14 +1851,15 @@ function renderOP(){
       ${document.getElementById('voz3')?.value?`<div class="ace-voz-item"><strong style="color:#CCCCEE">03 /</strong> ${document.getElementById('voz3').value}</div>`:'<div class="ace-voz-item" style="color:var(--mu)">03 / Sin respuesta</div>'}
     </div>
 
-    <!-- VEREDICTO DEL EVALUADOR -->
+    <!-- VEREDICTO DEL EVALUADOR — solo visible para evaluador/coordinador -->
+    ${(G.roomRole==='evaluator'||G.roomRole==='coordinator'||!G.room)?`
     <div style="border-top:.5px solid rgba(255,255,255,.08);padding:12px 14px">
       <div style="font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:8px">Veredicto del evaluador — completar aquí</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
         ${['No admitido','Lista de espera','Admitido','Admitido con mención'].map(v=>`<button onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.style.cssText='');this.style.cssText='border-color:var(--cy);background:rgba(31,174,128,.18);color:var(--cy-l);font-weight:700'" style="font-size:11px;padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.03);color:#C0C0E0;cursor:pointer;font-family:var(--fh);font-weight:600;transition:all .15s">${v}</button>`).join('')}
       </div>
       <textarea style="width:100%;background:rgba(255,255,255,.03);border:.5px solid rgba(255,255,255,.12);border-radius:7px;padding:8px 10px;color:#EEEEFF;font-size:12px;font-family:var(--fb);resize:none;outline:none;min-height:50px" placeholder="Observaciones del evaluador: fortalezas, áreas de desarrollo, notas de orientación vocacional..."></textarea>
-    </div>
+    </div>`:``}
   </div>`;
 
   // OP grid
