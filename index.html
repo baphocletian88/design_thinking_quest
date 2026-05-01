@@ -178,7 +178,7 @@ html,body{height:100%;background:var(--bg0);color:var(--wh);font-family:var(--fb
 .ropt{padding:13px 16px;border-radius:9px;border:1.5px solid rgba(255,255,255,.15);background:var(--bg3);color:#EEEEFF;font-size:15px;text-align:left;cursor:pointer;transition:all .2s;width:100%;font-family:var(--fb);line-height:1.45;font-weight:500}
 .ropt:hover{border-color:rgba(255,255,255,.35);background:var(--bg4);color:#FFFFFF}
 .ropt.ok{border-color:var(--cy);background:rgba(31,174,128,.18);color:#AAFFD8}
-.ropt.no{border-color:var(--co);background:rgba(200,64,48,.15);color:#FFB8B0}
+.ropt.no{border-color:var(--co);background:rgba(200,64,48,.15);color:#FFB8B0}.ropt.sel{border-color:var(--pu);background:rgba(139,127,232,.18);color:var(--pu-l)}
 .reto-just{font-size:14px;color:var(--gh);line-height:1.65;margin-top:12px;padding-top:12px;border-top:.5px solid var(--bd)}
 
 /* ───────────────────────────────────────────────────────────── DECISIONES */
@@ -833,13 +833,13 @@ const MISSIONS=[
    reto:{q:'Si tu personaje fuera una paleta de colores, ¿cuál sería el principio dominante?',
          opts:['Alto contraste: negros puros con acentos eléctricos muy saturados','Gradiente de análogos: tonos vecinos que crean suavidad y cohesión','Monocromático puro: una sola familia de tono, de oscuro a claro','Contraste de textura: los colores son secundarios, la materialidad es lo primero'],
          corr:0,just:'El contraste es la herramienta principal de identidad visual. Las marcas más reconocibles mundialmente usan alto contraste porque la memoria visual trabaja con diferencias, no con similitudes.'},
-   decs:[{q:'¿Cómo arrancas el moodboard?',opts:[{t:'Imagen primero',s:'La imagen perfecta y de ahí derivas todo.',g:{v:1},c:'◆+1 Visión'},{t:'Color primero',s:'La paleta define qué imágenes son válidas.',g:{f:1},c:'⬡+1 Forma'},{t:'Tipografía primero',s:'La letra define el tono de todo.',g:{n:1},c:'★+1 Narrativa'},{t:'Concepto primero',s:'Una palabra guía y todo se deriva de ella.',g:{v:2},c:'◆+2 Visión'}]},{q:'¿Cómo defines el logo?',opts:[{t:'Solo tipografía',s:'El nombre bien puesto lo dice todo.',g:{v:1},c:'◆+1'},{t:'Símbolo + texto',s:'Ícono y nombre juntos: sistema completo.',g:{f:1},c:'⬡+1'},{t:'Solo símbolo',s:'El ícono lo dice todo sin palabras.',g:{v:1,n:1},c:'◆+1 ★+1'},{t:'Collage visual',s:'Varias imágenes formando una marca.',g:{f:1,n:1},c:'⬡+1 ★+1'}]}]},
+   decs:[{q:'¿Cómo arrancas el moodboard?',opts:[{t:'Imagen primero',s:'La imagen perfecta y de ahí derivas todo.',g:{v:1},c:'◆+1 Visión'},{t:'Color primero',s:'La paleta define qué imágenes son válidas.',g:{f:1},c:'⬡+1 Forma'},{t:'Tipografía primero',s:'La letra define el tono de todo.',g:{n:1},c:'★+1 Narrativa'},{t:'Concepto primero',s:'Una palabra guía y todo se deriva de ella.',g:{v:2},c:'◆+2 Visión'}]},{q:'¿Cómo defines el logo?',opts:[{t:'Solo tipografía',s:'El nombre bien puesto lo dice todo.',g:{v:1},c:'◆+1'},{t:'Símbolo + texto',s:'Ícono y nombre juntos: sistema completo.',g:{f:1},c:'⬡+1'},{t:'Solo símbolo',s:'El ícono lo dice todo sin palabras.',g:{v:1,n:1},c:'◆+1 ★+1'},{t:'Collage visual',s:'Varias imágenes formando una marca.',g:{f:1,t:1},c:'⬡+1 ⬟+1'}]}]},
   {id:1,name:'Tu Look',disc:'Vestuario y estilo del personaje',brief:'Diseña el outfit completo. No solo cómo se ve: por qué se ve así. Cada prenda tiene que justificar su presencia. Usa el sistema de capas para construir el look.',
    time:15,ch:'#1FAE80',cx:'var(--cy-x)',cr:{v:0,f:2,n:1,t:0},
    reto:{q:'¿Qué principio de diseño de moda es más fundamental para crear un look con identidad propia?',
          opts:['Form follows function — cada prenda existe porque tiene un propósito claro','Less is more — la reducción al esencial revela la verdadera estética','More is more — la acumulación y capas crean una voz visual inconfundible','Cultural remix — mezclar referentes de mundos distintos para crear algo nuevo'],
          corr:0,just:'Form follows function es el principio más fundamental del diseño: cuando cada prenda justifica su presencia con una razón funcional o conceptual, el resultado tiene integridad visual. Los demás principios son estilos válidos, pero este es el fundamento que los sostiene a todos.'},
-   decs:[{q:'¿Cuál es el elemento signature del look?',opts:[{t:'El calzado',s:'Los zapatos definen todo lo que viene arriba.',g:{f:2},c:'⬡+2'},{t:'El outerwear',s:'La chaqueta es lo primero que ves de lejos.',g:{f:1,v:1},c:'⬡+1 ◆+1'},{t:'Un accesorio único',s:'Un elemento que nadie más tendría.',g:{v:2},c:'◆+2'},{t:'La paleta de colores',s:'Los colores juntos son el signature.',g:{f:1,n:1},c:'⬡+1 ★+1'}]},{q:'¿Qué justifica cada prenda?',opts:[{t:'Funcionalidad real',s:'Todo tiene un uso práctico visible.',g:{f:2},c:'⬡+2'},{t:'Referencia cultural',s:'Cada pieza apunta a un mundo específico.',g:{v:1,n:1},c:'◆+1 ★+1'},{t:'Coherencia estética',s:'Todo tiene que verse bien junto.',g:{v:1},c:'◆+1'},{t:'Oposición deliberada',s:'Piezas que no deberían ir juntas — ese es el punto.',g:{n:2},c:'★+2'}]}]},
+   decs:[{q:'¿Cuál es el elemento signature del look?',opts:[{t:'El calzado',s:'Los zapatos definen todo lo que viene arriba.',g:{f:2},c:'⬡+2'},{t:'El outerwear',s:'La chaqueta es lo primero que ves de lejos.',g:{f:1,v:1},c:'⬡+1 ◆+1'},{t:'Un accesorio único',s:'Un elemento que nadie más tendría.',g:{v:2},c:'◆+2'},{t:'La paleta de colores',s:'Los colores juntos son el signature.',g:{f:1,n:1},c:'⬡+1 ★+1'}]},{q:'¿Qué justifica cada prenda?',opts:[{t:'Funcionalidad real',s:'Todo tiene un uso práctico visible.',g:{f:1,t:1},c:'⬡+1 ⬟+1'},{t:'Referencia cultural',s:'Cada pieza apunta a un mundo específico.',g:{v:1,n:1},c:'◆+1 ★+1'},{t:'Coherencia estética',s:'Todo tiene que verse bien junto.',g:{v:1},c:'◆+1'},{t:'Oposición deliberada',s:'Piezas que no deberían ir juntas — ese es el punto.',g:{n:2},c:'★+2'}]}]},
   {id:2,name:'Tu Espacio',disc:'El lugar donde vive y crea tu personaje',brief:'Diseña el espacio físico de tu personaje. Lo que hay ahí dice quién es tanto como su ropa. Elige el tipo de espacio y sus elementos con referencias reales.',
    time:15,ch:'#D4960A',cx:'var(--go-x)',cr:{v:1,f:2,n:0,t:1},
    reto:{q:'¿Qué dice más de una persona: su ropa o su espacio?',
@@ -1043,6 +1043,7 @@ const G={
   retoOk:[false,false,false,false,false],
   retoSel:[null,null,null,null,null],
   decSel:[[null,null],[null,null],[null,null],[null,null],[null]],
+  decJust:[[null,null],[null,null],[null,null],[null,null],[null]],
   premiumUnlocked:[false,false,false,false,false],
   bankTab:[0,0,0,0,0],
   // M1 state
@@ -1089,7 +1090,7 @@ setInterval(()=>{
 function gain(obj){Object.keys(obj).forEach(k=>{G.cred[k]=(G.cred[k]||0)+(obj[k]||0);});syncC();}
 function spendC(obj){Object.keys(obj).forEach(k=>{G.cred[k]=Math.max(0,(G.cred[k]||0)-(obj[k]||0));});syncC();}
 function syncC(){
-  const MAX=12;
+  const MAX=20; // Increased to accommodate all possible credits
   ['v','f','n','t'].forEach(k=>{
     const v=G.cred[k]||0;
     ['e'+k,'iv'+k].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=v;});
@@ -1203,7 +1204,27 @@ function aGo(i){
 }
 
 function confirmArch(){
-  G.arch=ARCHS[G.aIdx];G.mst=[1,0,0,0,0];G.running=true;
+  // Full state reset when confirming archetype
+  G.arch=ARCHS[G.aIdx];
+  G.mst=[1,0,0,0,0];G.running=true;
+  G.cred={v:0,f:0,n:0,t:0};
+  G.entries=[];G.penalties=0;
+  G.retoOk=[false,false,false,false,false];
+  G.retoSel=[null,null,null,null,null];
+  G.decSel=[[null,null],[null,null],[null,null],[null,null],[null]];
+  G.decJust=[[null,null],[null,null],[null,null],[null,null],[null]];
+  G.premiumUnlocked=[false,false,false,false,false];
+  G.bankTab=[0,0,0,0,0];
+  G.mbBoard=[null,null,null,null,null,null];
+  G.m5imgs=[null,null,null,null];
+  G.selectedPal=null;G.customPal=null;G.palNote='';
+  G.selectedSpace=null;G.selectedEls=[];
+  G.selectedObjs=[];G.objCat='tech';G.objOther=null;
+  G.routePick=null;G.m5preq=null;G.storyScenes=['','','',''];
+  G.synthDone=false;G.synthAns=null;
+  G.silGender='M';G.silBase='MA';
+  G.silTop=null;G.silBottom=null;G.silShoes=null;G.silAcc=null;
+  G.silColor='#2A3A5C';
   gain(G.arch.cr);
   const pill=document.getElementById('arch-pill');
   pill.style.display='flex';
@@ -1226,6 +1247,37 @@ function renderTab(){
     <div style="display:flex;gap:5px;margin-top:5px">${a.tags.map(t=>`<span class="ac-tag" style="background:${a.hex}20;color:${a.hex};border:.5px solid ${a.hex}44;font-size:11px;padding:2px 9px">${t}</span>`).join('')}</div></div>`;
   }
   const mc=document.getElementById('mcards');if(!mc)return;mc.innerHTML='';
+
+  // Rhythm indicator
+  const elapsed=5400-G.secs;
+  const mDoneT=G.mst.filter(s=>s===3).length;
+  const mLeft=5-mDoneT;
+  if(mDoneT>0&&mLeft>0){
+    const avgSecs=elapsed/mDoneT;
+    const estLeft=Math.round(avgSecs*mLeft/60);
+    const secsLeft=Math.round(G.secs/60);
+    const ok=estLeft<=secsLeft;
+    const rDiv=document.createElement('div');
+    rDiv.style.cssText='background:'+(ok?'rgba(31,174,128,.08)':'rgba(200,64,48,.08)')+';border:.5px solid '+(ok?'rgba(31,174,128,.25)':'rgba(200,64,48,.3)')+';border-radius:9px;padding:9px 14px;margin-bottom:12px;font-size:12px;display:flex;align-items:center;gap:10px';
+    rDiv.innerHTML='<span style="font-size:18px">'+(ok?'🟢':'🟡')+'</span><span style="color:var(--wh)">A este ritmo terminarás en <strong>~'+estLeft+' min</strong>. Te quedan <strong>'+mLeft+' misión'+(mLeft!==1?'es':'')+'</strong> y <strong>'+secsLeft+' min</strong>.</span>';
+    mc.appendChild(rDiv);
+  }
+
+  // Synthesis challenge
+  if(mDoneT>=3&&!G.synthDone){
+    const syn=document.createElement('div');
+    syn.style.cssText='background:rgba(212,150,10,.08);border:1px solid rgba(212,150,10,.35);border-radius:10px;padding:14px;margin-bottom:14px';
+    syn.innerHTML='<div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--go-l);font-weight:700;font-family:var(--fh);margin-bottom:6px">⭐ Reto de síntesis — opcional · +◆ +★</div>'+
+      '<div style="font-size:14px;color:var(--wh);margin-bottom:10px;line-height:1.55">Tu look y tu espacio comparten un elemento visual o conceptual. ¿Cuál es y por qué no es casualidad?</div>'+
+      '<textarea class="fi" placeholder="Conecta lo que ya creaste — busca el hilo invisible..." rows="3" style="margin-bottom:10px" oninput="G.synthAns=this.value">'+(G.synthAns||'')+'</textarea>'+
+      '<button class="btn btn-g" style="width:auto;padding:0 20px;font-size:13px" onclick="completeSynth()">Enviar — ganar ◆ +★</button>';
+    mc.appendChild(syn);
+  } else if(G.synthDone){
+    const syn=document.createElement('div');
+    syn.style.cssText='background:rgba(212,150,10,.06);border:.5px solid rgba(212,150,10,.2);border-radius:9px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--go-l)';
+    syn.textContent='✓ Reto de síntesis completado — +◆ +★';
+    mc.appendChild(syn);
+  }
   MISSIONS.forEach((m,i)=>{
     const st=G.mst[i];
     const card=document.createElement('div');
@@ -1277,11 +1329,11 @@ function renderMission(idx){
   // RETO
   if(!rOk){
     html+=`<div class="reto-box" style="background:${m.ch}0C;border:.5px solid ${m.ch}44">
-      <div class="reto-lbl" style="color:${m.ch}">Reto de apertura — responde bien para ganar créditos</div>
-      <div class="reto-penalty-notice">⚠ Respuesta incorrecta = <strong>−5 minutos</strong> de tu tiempo total</div>
+      <div class="reto-lbl" style="color:${m.ch}">Reto de apertura — elige y argumenta tu postura</div>
+      <div class="reto-penalty-notice" style="background:rgba(139,127,232,.08);border-color:rgba(139,127,232,.2);color:var(--pu-l)">💡 Cualquier respuesta desbloquea la herramienta. La opción con el argumento más sólido en diseño da créditos extra.</div>
       <div class="reto-q">${m.reto.q}</div>
-      <div class="ropts">${m.reto.opts.map((o,i)=>`<button class="ropt${G.retoSel[idx]===i?(i===m.reto.corr?' ok':' no'):''}" onclick="ansReto(${idx},${i})">${o}</button>`).join('')}</div>
-      ${G.retoSel[idx]!==null&&G.retoSel[idx]!==m.reto.corr?`<div class="reto-just">Incorrecto. La correcta es la opción ${m.reto.corr+1}: <strong style="color:#CCCCEE">${m.reto.opts[m.reto.corr]}</strong><br><br>${m.reto.just}</div>`:''}
+      <div class="ropts">${m.reto.opts.map((o,i)=>`<button class="ropt${G.retoSel[idx]===i?(i===m.reto.corr?' ok':' sel'):''}" onclick="ansReto(${idx},${i})">${o}</button>`).join('')}</div>
+      ${G.retoSel[idx]!==null?`<div class="reto-just" style="background:${G.retoSel[idx]===m.reto.corr?'rgba(31,174,128,.08)':'rgba(139,127,232,.08)'};border-color:${G.retoSel[idx]===m.reto.corr?'rgba(31,174,128,.3)':'rgba(139,127,232,.3)'}"><strong style="color:#CCCCEE">Argumento de referencia en diseño:</strong> ${m.reto.just}</div>`:''}
     </div>`;
   } else {
     html+=`<div style="background:var(--cy-x);border:.5px solid rgba(31,174,128,.3);border-radius:9px;padding:10px 14px;margin-bottom:14px;font-size:15px;color:var(--cy-l);font-weight:600">✓ Reto completado — créditos obtenidos. Ahora toma tus decisiones.</div>`;
@@ -1291,34 +1343,49 @@ function renderMission(idx){
   if(rOk){
     m.decs.forEach((dec,di)=>{
       if(di===1&&d0===null)return;
+      const selOi=G.decSel[idx][di];
       html+=`<div class="dec-block">
         <div class="dec-q">${dec.q}</div>
-        <div class="dec-opts">${dec.opts.map((o,oi)=>`<div class="dopt${G.decSel[idx][di]===oi?' sel':''}" style="${G.decSel[idx][di]===oi?'border-color:'+m.ch+';background:'+m.ch+'18':''}" onclick="selDec(${idx},${di},${oi})">
+        <div class="dec-opts">${dec.opts.map((o,oi)=>`<div class="dopt${selOi===oi?' sel':''}" style="${selOi===oi?'border-color:'+m.ch+';background:'+m.ch+'18':''}" onclick="selDec(${idx},${di},${oi})">
           <div class="dopt-t">${o.t}</div>
           <div class="dopt-s">${o.s}</div>
           <span class="dopt-gain" style="background:${m.ch}22;color:${m.ch}">${o.c}</span>
         </div>`).join('')}</div>
+        ${selOi!==null?`<div style="margin-top:7px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;color:${m.ch};font-weight:600;white-space:nowrap">¿Por qué esta?</span>
+          <input class="fi" style="margin:0;font-size:13px;padding:8px 12px;flex:1" type="text"
+            placeholder="Una razón — no el qué, el porqué..."
+            value="${(G.decJust[idx]&&G.decJust[idx][di])||''}"
+            oninput="saveDecJust(${idx},${di},this.value)">
+        </div>`:''}
       </div>`;
     });
   }
 
   // HERRAMIENTA DE CREACIÓN
-  const showTool=rOk&&d0!==null&&(nd<2||d1!==null);
+  const showTool=rOk&&d0!==null; // Tool unlocks after first decision
   if(showTool) html+=buildTool(idx,m,a);
 
-  // PREMIUM
-  if(showTool&&!G.premiumUnlocked[idx]&&G.cred.v>=2){
-    html+=`<div class="spend-box">
-      <span class="spend-txt">Gasta 2 créditos de Visión para desbloquear el <strong>banco visual premium</strong>: 10 referencias curatoriales adicionales.</span>
-      <button class="spend-btn" onclick="unlockPremium(${idx})">Gastar ◆◆</button>
-    </div>`;
+  // CREDITS PANEL — visible inside mission when tool is shown
+  if(showTool){
+    const cv=G.cred.v||0,cf=G.cred.f||0,cn=G.cred.n||0,ct=G.cred.t||0;
+    const total=cv+cf+cn+ct;
+    if(total>0){
+      html+='<div style="background:var(--bg2);border:.5px solid var(--bd);border-radius:8px;padding:9px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">'+
+        '<span style="font-size:11px;color:var(--gh);font-weight:600">Créditos en esta misión:</span>'+
+        (cv?'<span style="background:var(--pu-x);color:var(--pu-l);padding:2px 8px;border-radius:4px;font-size:11px;font-family:var(--fm)">◆'+cv+'</span>':'')+
+        (cf?'<span style="background:var(--cy-x);color:var(--cy-l);padding:2px 8px;border-radius:4px;font-size:11px;font-family:var(--fm)">⬡'+cf+'</span>':'')+
+        (cn?'<span style="background:var(--go-x);color:var(--go-l);padding:2px 8px;border-radius:4px;font-size:11px;font-family:var(--fm)">★'+cn+'</span>':'')+
+        (ct?'<span style="background:var(--gr-x);color:var(--gr-l);padding:2px 8px;border-radius:4px;font-size:11px;font-family:var(--fm)">⬟'+ct+'</span>':'')+
+        '</div>';
+    }
   }
 
   // BOTONES
   if(showTool){
     html+=`<div class="btn-row">
       <button class="btn btn-p btn-sm" style="flex:1" onclick="goS('tablero')">← Tablero</button>
-      <button class="btn btn-c" style="flex:2" onclick="completeMission(${idx})">✓ Guardar y completar misión ${idx+1}</button>
+      <button class="btn btn-c" style="flex:2" onclick="tryComplete(${idx})">✓ Guardar y completar misión ${idx+1}</button>
     </div>`;
   } else {
     html+=`<button class="btn btn-p btn-sm" style="max-width:200px" onclick="goS('tablero')">← Volver al tablero</button>`;
@@ -1359,13 +1426,20 @@ function buildTool(idx,m,a){
     h+='<div style="font-size:11px;color:var(--mu);margin-bottom:14px">Formatos: JPG, PNG, GIF, WEBP · Max. 5 MB por imagen</div>';
 
     // Paletas
-    h+=`<div class="sec-lbl">Paleta de color — elige la que mejor represente a tu personaje</div>
+    h+=`<div class="sec-lbl">Paleta de color — elige una o crea la tuya</div>
     <div class="pal-grid">
       ${PALETTES.map((p,pi)=>`<div class="pal-card${G.selectedPal===pi?' sel':''}" onclick="selPal(${pi})">
         <div class="pal-swatches">${p.colors.map(c=>`<div class="pal-swatch" style="background:${c}"></div>`).join('')}</div>
         <div class="pal-name">${p.name}</div>
       </div>`).join('')}
-    </div>`;
+      <div class="pal-card${G.selectedPal===-1?' sel':''}" onclick="selPal(-1)" style="border-style:dashed">
+        <div class="pal-swatches" id="custom-pal-swatches">
+          ${(G.customPal||['#333333','#666666','#999999','#CCCCCC','#FFFFFF']).map((col,ci)=>`<div class="pal-swatch" style="background:${col};position:relative"><input type="color" value="${col}" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%" oninput="setCustomPal(${ci},this.value)" onclick="event.stopPropagation()"></div>`).join('')}
+        </div>
+        <div class="pal-name">✏ Mi paleta</div>
+      </div>
+    </div>
+    ${G.selectedPal!=null?`<input class="fi" type="text" placeholder="¿Qué dice esta paleta sobre tu personaje?" style="margin-bottom:10px" oninput="G.palNote=this.value" value="${G.palNote||''}">`:``}`;
 
     h+=`<label class="fl">¿Qué dice tu paleta sobre el personaje?</label>
     <input class="fi" type="text" placeholder="Ej: agresivo y tecnológico, como si el color tuviera electricidad...">
@@ -1498,63 +1572,106 @@ function buildTool(idx,m,a){
     </div>
     <label class="fl">¿Por qué solo este personaje tendría este objeto?</label>
     <textarea class="fi" placeholder="La razón de fondo — cultural, funcional o histórica..." rows="3"></textarea>`;
+    // Other object section — concatenation to avoid nested template issues
+    var ooSlotContent=G.objOther&&G.objOther.dataUrl?
+      '<img src="'+G.objOther.dataUrl+'" style="width:100%;height:100%;object-fit:cover;border-radius:6px"><button class="sl-rm" onclick="clearObjOtherImg()">✕</button>'
+      :'<label style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:4px">'+
+        '<span style="font-size:20px">📎</span>'+
+        '<span style="font-size:9px;color:var(--mu);text-align:center">Imagen<br>opcional</span>'+
+        '<input type="file" accept="image/*" style="display:none" onchange="objOtherUpload(event)">'+
+        '</label>';
+    h+='<div style="border-top:.5px solid var(--bd);margin-top:14px;padding-top:14px">'+
+      '<div style="font-size:12px;color:var(--go-l);font-weight:700;margin-bottom:8px">⭐ ¿No está en el catálogo? Crea el tuyo — gana ◆◆ extra</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px">'+
+        '<input class="fi" id="obj-other-name" type="text" placeholder="Nombre del objeto" style="margin:0" value="'+(G.objOther?G.objOther.name:'')+'" oninput="setObjOther(&quot;name&quot;,this.value)">'+
+        '<input class="fi" id="obj-other-desc" type="text" placeholder="¿Qué lo hace único?" style="margin:0" value="'+(G.objOther?G.objOther.desc:'')+'" oninput="setObjOther(&quot;desc&quot;,this.value)">'+
+      '</div>'+
+      '<div class="mb-slot'+(G.objOther&&G.objOther.dataUrl?' filled':'')+'" style="width:120px;height:90px;cursor:default">'+ooSlotContent+'</div>'+
+    '</div>';
   }
   else if(idx===4){
     const ruta=G.routePick;
     if(!ruta){
-      h+=`<div class="sec-lbl">Elige tu ruta antes de comenzar</div>
-      <div class="route-grid">
-        ${m.decs[0].opts.map((o,ri)=>`<div class="route-opt${ruta===ri?' on':''}" style="${ruta===ri?'border-color:'+ac+';background:'+ac+'18':''}" onclick="setRoute(${ri})">
-          <div class="route-t">${['Ruta A','Ruta B','Ruta C','Ruta D'][ri]} — ${o.t}</div>
-          <div class="route-s">${o.s}</div>
-          <span class="route-gain" style="background:${ac}20;color:${ac}">${o.c}</span>
-        </div>`).join('')}
-      </div>`;
+      // Pre-question before revealing route names
+      if(G.m5preq===null){
+        var preqOpts=[
+          'En secuencias visuales — momentos conectados que forman una historia con inicio y fin',
+          'En movimiento — loops, gestos y ritmo que se sienten más que se leen',
+          'En páginas — composición editorial donde cada elemento ocupa un lugar deliberado',
+          'En espacio — una experiencia que el espectador entra y recorre físicamente'
+        ];
+        h+='<div class="reto-box" style="background:'+ac+'0A;border:.5px solid '+ac+'44;margin-bottom:14px">'+
+          '<div class="reto-lbl" style="color:'+ac+'">Antes de elegir tu ruta — una pregunta</div>'+
+          '<div class="reto-q">¿Cómo te imaginas que tu personaje cuenta lo que vive?</div>'+
+          '<div class="ropts">'+
+          preqOpts.map(function(q,qi){return '<button class="ropt" onclick="setM5Preq('+qi+')">'+q+'</button>';}).join('')+
+          '</div></div>';
+      } else {
+        var suggested=G.m5preq;
+        var routeNames=['Ruta A','Ruta B','Ruta C','Ruta D'];
+        h+='<div style="background:'+ac+'10;border:.5px solid '+ac+'33;border-radius:9px;padding:11px 14px;margin-bottom:12px;font-size:13px">'+
+          '<span style="color:'+ac+';font-weight:700">Sugerida para ti: '+routeNames[suggested]+'</span>'+
+          '<span style="color:var(--gh);margin-left:8px">— basado en tu respuesta. Puedes elegir cualquier ruta.</span>'+
+          '</div>';
+        h+='<div class="sec-lbl">Confirma tu ruta</div><div class="route-grid">';
+        m.decs[0].opts.forEach(function(o,ri){
+          var isSug=ri===suggested;
+          h+='<div class="route-opt'+(isSug?' suggested':'')+'" style="'+(isSug?'border-color:'+ac+';background:'+ac+'14':'')+
+            '" onclick="setRoute('+ri+')">'+
+            '<div class="route-t">'+routeNames[ri]+' — '+o.t+(isSug?' ★':'')+'</div>'+
+            '<div class="route-s">'+o.s+'</div>'+
+            '<span class="route-gain" style="background:'+ac+'20;color:'+ac+'">'+o.c+'</span>'+
+          '</div>';
+        });
+        h+='</div>';
+      }
     } else {
-      const rNm=['Narrativa + UX','Animación','Editorial visual','Experiencia física'][ruta];
-      h+=`<div style="font-size:13px;color:${ac};font-weight:700;margin-bottom:12px;font-family:var(--fh)">Ruta ${['A','B','C','D'][ruta]} — ${rNm} <button onclick="setRoute(null)" style="font-size:11px;color:var(--gh);background:transparent;border:none;cursor:pointer;margin-left:8px">cambiar</button></div>`;
+      var rNm=['Narrativa + UX','Animación','Editorial visual','Experiencia física'][ruta];
+      h+='<div style="font-size:13px;color:'+ac+';font-weight:700;margin-bottom:12px;font-family:var(--fh)">Ruta '+['A','B','C','D'][ruta]+' — '+rNm+' <button onclick="setRoute(null)" style="font-size:11px;color:var(--gh);background:transparent;border:none;cursor:pointer;margin-left:8px">cambiar</button></div>';
       if(ruta===0||ruta===1){
         const nf=ruta===0?4:3;
         const prompts=ruta===0
           ?['APERTURA — ¿Quién es y en qué mundo vive?','CONFLICTO — ¿Qué tensión o deseo lo mueve?','CLÍMAX — ¿Qué decisión toma? ¿Qué lo define?','CIERRE — ¿Cómo queda el mundo tras su acción?']
           :['ESTADO BASE — Personaje en forma neutra / inicial','TRANSFORMACIÓN — Algo cambia, se activa, se revela','LOOP FINAL — El resultado que se repite y comunica'];
-        const archN=G.arch?G.arch.name:'tu personaje';
-        h+=`<div style="background:${ac}0A;border:.5px solid ${ac}30;border-radius:10px;padding:11px 14px;margin-bottom:12px">
-          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:${ac};font-weight:700;font-family:var(--fh);margin-bottom:4px">${ruta===0?'Storyboard narrativo — 4 escenas':'Storyboard de animación — 3 frames'}</div>
-          <div style="font-size:13px;color:var(--gh)">Cada cuadro construye la historia de ${archN}. Describe qué se ve, qué se siente y por qué ese momento importa.</div>
-        </div>
-        <div class="sgrid" style="margin-bottom:12px">
-          ${Array.from({length:nf},(_,n)=>`<div class="sf" style="border-color:${G.storyScenes[n]?ac+'66':'rgba(255,255,255,.1)'}">
-            <div class="sf-n" style="display:flex;align-items:center;gap:5px;margin-bottom:4px">
-              <span style="background:${ac}22;color:${ac};border-radius:4px;padding:1px 7px;font-size:9px;font-weight:700;font-family:var(--fh)">${n+1}</span>
-              <span style="font-size:9px;color:${ac};font-weight:600;font-family:var(--fh)">${prompts[n].split('—')[0].trim()}</span>
-            </div>
-            <div class="sf-area" style="background:${ac}06;border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--mu);font-size:10px;font-style:italic;text-align:center;padding:5px">${prompts[n].split('—')[1]?.trim()||''}</div>
-            <input class="sf-inp" type="text" placeholder="Describe la imagen concreta que verías..." onclick="event.stopPropagation()" oninput="saveScene(${n},this.value)" value="${G.storyScenes[n]||''}">
-          </div>`).join('')}
-        </div>
-        <div style="background:${ac}08;border:.5px solid ${ac}22;border-radius:9px;padding:11px 14px;margin-bottom:10px">
-          <label class="fl">${ruta===0?'¿En qué tipo de pantalla vive esta historia?':'¿Cuál es el ritmo de la animación?'}</label>
-          <select class="fi" style="margin-bottom:8px">${ruta===0?'<option>App móvil — pantalla táctil personal</option><option>Canal streaming — full screen inmersivo</option><option>Red social — scroll vertical</option><option>Dashboard — productividad y sistemas</option><option>Sitio web — experiencia navegable</option>':'<option>Loop rápido — menos de 2 segundos, energía</option><option>Loop medio — 3 a 5 segundos, contemplativo</option><option>Loop lento — 6 a 10 segundos, atmosférico</option><option>Única — no repite, momento irrepetible</option>'}</select>
-          <label class="fl">¿Qué emoción provoca en quien lo ve?</label>
-          <input class="fi" type="text" placeholder="${ruta===0?'Ej: curiosidad que se convierte en deseo de explorar más...':'Ej: inquietud suave, como ver algo que debería ser estático pero no...'}">
-        </div>
-        <label class="fl">¿Por qué este formato es el correcto para ${archN}?</label>
-        <textarea class="fi" placeholder="Razona tu elección: ¿qué tiene este medio que ningún otro le daría a este personaje?" rows="3"></textarea>`;
+        var archN=G.arch?G.arch.name:'tu personaje';
+        h+='<div style="background:'+ac+'0A;border:.5px solid '+ac+'30;border-radius:10px;padding:11px 14px;margin-bottom:12px">'+
+          '<div style="font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:'+ac+';font-weight:700;font-family:var(--fh);margin-bottom:4px">'+(ruta===0?'Storyboard narrativo — 4 escenas':'Storyboard de animación — 3 frames')+'</div>'+
+          '<div style="font-size:13px;color:var(--gh)">Cada cuadro construye la historia de '+archN+'. Describe qué se ve, qué se siente y por qué ese momento importa.</div>'+
+          '</div>'+
+          '<div class="sgrid" style="margin-bottom:12px">';
+        Array.from({length:nf},function(_,n){
+          h+='<div class="sf" style="border-color:'+(G.storyScenes[n]?ac+'66':'rgba(255,255,255,.1)')+'">'+
+            '<div class="sf-n" style="display:flex;align-items:center;gap:5px;margin-bottom:4px">'+
+              '<span style="background:'+ac+'22;color:'+ac+';border-radius:4px;padding:1px 7px;font-size:9px;font-weight:700;font-family:var(--fh)">'+(n+1)+'</span>'+
+              '<span style="font-size:9px;color:'+ac+';font-weight:600;font-family:var(--fh)">'+prompts[n].split('—')[0].trim()+'</span>'+
+            '</div>'+
+            '<div class="sf-area" style="background:'+ac+'06;border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--mu);font-size:10px;font-style:italic;text-align:center;padding:5px">'+(prompts[n].split('—')[1]||'').trim()+'</div>'+
+            '<input class="sf-inp" type="text" placeholder="Describe la imagen concreta que verías..." onclick="event.stopPropagation()" oninput="saveScene('+n+',this.value)" value="'+(G.storyScenes[n]||'')+'">'+
+          '</div>';
+        });
+        h+='</div>'+
+          '<div style="background:'+ac+'08;border:.5px solid '+ac+'22;border-radius:9px;padding:11px 14px;margin-bottom:10px">'+
+            '<label class="fl">'+(ruta===0?'¿En qué tipo de pantalla vive esta historia?':'¿Cuál es el ritmo de la animación?')+'</label>'+
+            '<select class="fi" style="margin-bottom:8px">'+(ruta===0?'<option>App móvil</option><option>Canal streaming</option><option>Red social — scroll</option><option>Dashboard</option><option>Sitio web</option>':'<option>Loop rápido — menos de 2 seg</option><option>Loop medio — 3 a 5 seg</option><option>Loop lento — 6 a 10 seg</option><option>Única — no repite</option>')+'</select>'+
+            '<label class="fl">¿Qué emoción provoca en quien lo ve?</label>'+
+            '<input class="fi" type="text" placeholder="'+(ruta===0?'Ej: curiosidad que se convierte en deseo de explorar más...':'Ej: inquietud suave, como ver algo que debería ser estático pero no...')+'">'+
+          '</div>'+
+          '<label class="fl">¿Por qué este formato es el correcto para '+archN+'?</label>'+
+          '<textarea class="fi" placeholder="Razona tu elección: ¿qué tiene este medio que ningún otro le daría a este personaje?" rows="3"></textarea>';
       } else {
         // Rutas C y D
-        h+=`<label class="fl">Tipo de ${ruta===2?'contenido editorial':'experiencia'}</label>
-        <select class="fi">${ruta===2?'<option>Editorial de revista</option><option>Zine independiente</option><option>Newsletter visual</option><option>Lookbook</option>':'<option>Experiencia inmersiva</option><option>Pop-up / exhibit</option><option>Instalación artística</option><option>Híbrida digital-física</option>'}</select>
-        <label class="fl">Concepto en una frase</label>
-        <input class="fi" type="text" placeholder="El concepto que rige todo...">
-        <label class="fl">¿Por qué este formato es el correcto para tu personaje?</label>
-        <textarea class="fi" placeholder="Razona tu elección de medio..." rows="3"></textarea>`;
+        h+='<label class="fl">Tipo de '+(ruta===2?'contenido editorial':'experiencia')+'</label>'+
+          '<select class="fi">'+(ruta===2?'<option>Editorial de revista</option><option>Zine independiente</option><option>Newsletter visual</option><option>Lookbook</option>':'<option>Experiencia inmersiva</option><option>Pop-up / exhibit</option><option>Instalación artística</option><option>Híbrida digital-física</option>')+'</select>'+
+          '<label class="fl">Concepto en una frase</label>'+
+          '<input class="fi" type="text" placeholder="El concepto que rige todo...">'+
+          '<label class="fl">¿Por qué este formato es el correcto para tu personaje?</label>'+
+          '<textarea class="fi" placeholder="Razona tu elección de medio..." rows="3"></textarea>';
       }
       // Upload de desarrollo — aplica a TODAS las rutas
-      h+=`<div style="margin-top:14px;background:var(--bg2);border:.5px solid var(--bd);border-radius:10px;padding:14px">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:6px">Sube tus imágenes de desarrollo</div>
-        <div style="font-size:13px;color:var(--gh);margin-bottom:12px;line-height:1.6">Sube las imágenes que desarrollaste para esta misión: bocetos, storyboard fotografiado, collage digital, layouts o cualquier material visual de apoyo. Estas imágenes se mostrarán en tu ficha final.</div>
-        <div class="mb-board" id="m5-upload-board" style="margin-bottom:8px">` +
+      h+='<div style="margin-top:14px;background:var(--bg2);border:.5px solid var(--bd);border-radius:10px;padding:14px">'+
+        '<div style="font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:6px">Sube tus imágenes de desarrollo</div>'+
+        '<div style="font-size:13px;color:var(--gh);margin-bottom:12px;line-height:1.6">Bocetos, storyboard fotografiado, collage digital, layouts. Se mostrarán en tu ficha final.</div>'+
+        '<div class="mb-board" style="margin-bottom:8px">'+
           Array.from({length:4},function(_,i){
             var sl=G.m5imgs&&G.m5imgs[i];
             return '<div class="mb-slot'+(sl?' filled':'')+'" style="cursor:default;position:relative">'+
@@ -1570,12 +1687,12 @@ function buildTool(idx,m,a){
                 '</label>'
               )+'</div>';
           }).join('') +
-        `</div>
-        <div style="font-size:11px;color:var(--mu)">Formatos: JPG, PNG, GIF, WEBP · Max. 5 MB por imagen · Hasta 4 imágenes</div>
-      </div>`;
+        '</div>'+
+        '<div style="font-size:11px;color:var(--mu)">Formatos: JPG, PNG, GIF, WEBP · Max. 5 MB · Hasta 4 imágenes</div>'+
+        '</div>';
     }
   }
-  h+=`</div>`;
+  h+='</div>';
   return h;
 }
 
@@ -1583,17 +1700,22 @@ function buildTool(idx,m,a){
 function ansReto(idx,oi){
   if(G.retoOk[idx])return;
   const m=MISSIONS[idx];
-  const alreadyPenalized=G.retoSel[idx]!==null&&G.retoSel[idx]!==m.reto.corr;
   G.retoSel[idx]=oi;
+  G.retoOk[idx]=true;
+  if(G.mst[idx]<2)G.mst[idx]=2;
+  // Any answer unlocks the tool. Correct answer gives bonus credits.
+  const total=Object.values(m.cr).reduce((a,b)=>a+b,0);
   if(oi===m.reto.corr){
-    G.retoOk[idx]=true;
-    const total=Object.values(m.cr).reduce((a,b)=>a+b,0);
     gain(m.cr);
-    showToast(`✓ Correcto — +${total} créditos desbloqueados`,'t-ok');
-  } else if(!alreadyPenalized){
-    // Solo resta minutos la primera vez que se equivoca — puede seguir intentando
-    applyPenalty();
+    showToast('✓ Respuesta fundamentada — +'+total+' créditos','t-ok');
+  } else {
+    // Partial credit: 1 credit of the dominant type
+    const domKey=Object.keys(m.cr).reduce((a,b)=>m.cr[a]>=m.cr[b]?a:b,'v');
+    gain({[domKey]:1});
+    showToast('Perspectiva válida — +1 crédito. La opción '+( m.reto.corr+1)+' tiene el argumento más sólido en diseño.','t-warn',3500);
   }
+  updateMtrack();
+  saveCheckpoint();
   renderMission(idx);
 }
 
@@ -1605,7 +1727,25 @@ function selDec(idx,di,oi){
     Object.keys(pg).forEach(k=>{G.cred[k]=Math.max(0,(G.cred[k]||0)-(pg[k]||0));});
   }
   G.decSel[idx][di]=oi;
-  gain(m.decs[di].opts[oi].g);
+  const g=m.decs[di].opts[oi].g;
+  gain(g);
+  // Credit toast with archetype voice
+  const total=Object.values(g).reduce((a,b)=>a+b,0);
+  const voices=[
+    'el Gamer Futurista lo sabía desde el principio.',
+    'el Artista Bohemio siempre sigue el instinto.',
+    'el Deportista Urbano actúa rápido y preciso.',
+    'el Músico Indie confía en lo que se siente real.',
+    'el Tech Entrepreneur elige con datos y convicción.'
+  ];
+  const voice=G.arch?voices[G.arch.id]:'tu personaje lo confirma.';
+  const credTxt=m.decs[di].opts[oi].c;
+  showToast('<strong>+'+credTxt+'</strong> — '+voice,'t-ok',2200);
+  // Reset justification if option changed
+  if(!G.decJust)G.decJust=[[null,null],[null,null],[null,null],[null,null],[null]];
+  if(!G.decJust[idx])G.decJust[idx]=[null,null];
+  if(G.decJust[idx]&&prev!==oi)G.decJust[idx][di]=null;
+  saveCheckpoint();
   renderMission(idx);
 }
 
@@ -1630,6 +1770,7 @@ function mbUpload(evt,idx){
   var reader=new FileReader();
   reader.onload=function(e){
     G.mbBoard[idx]={dataUrl:e.target.result,lbl:file.name.replace(/\.[^.]+$/,'').substring(0,22)};
+    saveCheckpoint();
     renderMission(G.mActive);
   };
   reader.readAsDataURL(file);
@@ -1651,7 +1792,7 @@ function m5Upload(evt,idx){
 }
 function m5Remove(i){if(G.m5imgs)G.m5imgs[i]=null;renderMission(G.mActive);}
 
-function selPal(pi){G.selectedPal=pi;renderMission(G.mActive);}
+// selPal defined in v9 helpers above
 
 // M2
 function setGender(g){G.silGender=g;G.silBase=g==='M'?'MA':'FA';G.silTop=null;G.silBottom=null;G.silShoes=null;G.silAcc=null;renderMission(G.mActive);}
@@ -1699,8 +1840,30 @@ function completeMission(idx){
   G.entries.push({idx,name:labels[idx],color:m.ch});
   updateMtrack();
   setTimeout(broadcastState,500);
-  showToast(`✓ Misión ${idx+1} completada`,'t-ok');
+  saveCheckpoint();
+  const done=G.mst.filter(s=>s===3).length;
+  // Unlock synthesis challenge after 3rd mission
+  if(done===3&&!G.synthDone){
+    showToast('✓ Misión '+( idx+1)+' completada — <strong>Reto de síntesis desbloqueado</strong> en el Tablero','t-ok',3500);
+  } else {
+    showToast('✓ Misión '+(idx+1)+' completada','t-ok');
+  }
   setTimeout(()=>{if(G.mst.every(s=>s===3))goS('voz');else goS('tablero');},1600);
+}
+
+// tryComplete — nudge for incomplete decisions but never block
+function tryComplete(idx){
+  const m=MISSIONS[idx];
+  const nd=m.decs.length;
+  const d1=G.decSel[idx][1];
+  // If 2 decs and second not answered, show nudge but still allow
+  if(nd>1&&d1===null){
+    showToast('Tip: hay una segunda decisión sin responder — puedes completarla antes de guardar, o continuar ahora.','t-warn',4000);
+    // Allow completion after 1.5s delay so user can see the nudge
+    setTimeout(()=>completeMission(idx),1500);
+    return;
+  }
+  completeMission(idx);
 }
 
 // ═══════════════════════════════════════════ INVENTARIO
@@ -1739,7 +1902,25 @@ function renderOP(){
   const totalCred=(G.cred.v||0)+(G.cred.f||0)+(G.cred.n||0)+(G.cred.t||0);
   const mDone=G.mst.filter(s=>s===3).length;
   // Vocational orientation based on credits + archetype + mission order
-  const vocHint=domCred.k==='v'?'Diseño Gráfico / Branding':domCred.k==='f'?'Diseño Industrial / Moda / Espacios':domCred.k==='n'?'Comunicación / Animación / UX':' Diseño Digital / Producto';
+  // Top-2 credits cross with archetype for richer vocational hint
+  const credSorted=[...credArr].sort((a,b)=>(G.cred[b.k]||0)-(G.cred[a.k]||0));
+  const top2=credSorted[0].k+'_'+credSorted[1].k;
+  const archId=G.arch?G.arch.id:0;
+  const vocMap={
+    'v_f':'Diseño Gráfico · Branding · Diseño de Moda',
+    'v_n':'Narrativa Gráfica · Dirección de Arte · Ilustración Editorial',
+    'v_t':'Diseño de Producto · Diseño Industrial · Motion Design',
+    'f_v':'Diseño de Espacios · Diseño de Moda · Fotografía',
+    'f_n':'Diseño Editorial · Diseño de Comunicación · UX/UI',
+    'f_t':'Diseño Industrial · Ergonomía · Diseño de Interacción',
+    'n_v':'Animación · Dirección Creativa · Publicidad',
+    'n_f':'Comunicación Visual · Diseño Editorial · Video',
+    'n_t':'UX Writing · Diseño de Producto · Game Design',
+    't_v':'Diseño Digital · Modelado 3D · Fabricación Digital',
+    't_f':'Diseño Industrial · Arquitectura · Diseño de Sistemas',
+    't_n':'Diseño de Experiencia · Tecnología Creativa · Game Design',
+  };
+  const vocHint=vocMap[top2]||vocMap[credSorted[0].k+'_v']||'Diseño Gráfico · Arte Digital';
   const penRisk=G.penalties>=3?'Alta (3+ errores conceptuales)':G.penalties>=1?'Media (1-2 errores)':'Baja (ningún error conceptual)';
   
   wrap.innerHTML=`<div class="arch-card-export" id="export-target" style="border-color:${a.hex};max-width:560px">
@@ -1824,6 +2005,20 @@ function renderOP(){
       </div>
     </div>
 
+    <!-- RAZONAMIENTO CREATIVO — justificaciones de decisiones -->
+    ${Object.values(G.decJust||{}).some(arr=>arr&&arr.some(j=>j))?`
+    <div style="border-top:.5px solid rgba(255,255,255,.08);padding:10px 14px">
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:8px">Razonamiento creativo — por qué elegí cada camino</div>
+      ${MISSIONS.map((m,mi)=>{
+        const justs=G.decJust[mi]||[];
+        const lines=m.decs.map((dec,di)=>{
+          const j=justs[di];
+          return j?`<div style="margin-bottom:5px"><span style="font-size:10px;color:${m.ch};font-weight:700">${dec.q.split('?')[0]}?</span><br><span style="font-size:12px;color:#DDDDEE">${j}</span></div>`:''
+        }).filter(Boolean).join('');
+        return lines?`<div style="margin-bottom:8px"><span style="font-size:10px;color:var(--gh);font-family:var(--fh)">${m.name} —</span>${lines}</div>`:''
+      }).filter(Boolean).join('')}
+    </div>`:``}
+
     <!-- MOODBOARD M1 — imágenes subidas -->
     ${G.mbBoard.some(function(s){return s&&s.dataUrl;})?`
     <div style="border-top:.5px solid rgba(255,255,255,.08);padding:10px 14px">
@@ -1854,11 +2049,37 @@ function renderOP(){
     <!-- VEREDICTO DEL EVALUADOR — solo visible para evaluador/coordinador -->
     ${(G.roomRole==='evaluator'||G.roomRole==='coordinator'||!G.room)?`
     <div style="border-top:.5px solid rgba(255,255,255,.08);padding:12px 14px">
-      <div style="font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:8px">Veredicto del evaluador — completar aquí</div>
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:10px">Rúbrica de evaluación</div>
+      ${[
+        {k:'d',lbl:'Pensamiento Divergente',pct:25,desc:'Originalidad, conexiones inesperadas, rompe lo obvio'},
+        {k:'e',lbl:'Ejecución bajo Presión',pct:25,desc:'Toma decisiones con tiempo limitado, no se paraliza'},
+        {k:'s',lbl:'Sensibilidad Estética',pct:20,desc:'Coherencia visual, criterio, gusto construido'},
+        {k:'t',lbl:'Pensamiento Sistémico',pct:20,desc:'Las partes forman un todo — hay lógica entre misiones'},
+        {k:'com',lbl:'Comunicación de la Idea',pct:10,desc:'Justifica, articula, hace visible su proceso'}
+      ].map(dim=>{
+        const val=G.rubric[dim.k]||0;
+        const vetoBoth=(dim.k==='d'||dim.k==='e')&&(G.rubric.d===1&&G.rubric.e===1);
+        return '<div style="margin-bottom:10px">'+
+          '<div style="display:flex;justify-content:space-between;margin-bottom:3px">'+
+            '<span style="font-size:12px;font-weight:700;color:var(--wh)">'+dim.lbl+' <span style="color:var(--gh);font-weight:400">('+dim.pct+'%)</span></span>'+
+            '<span style="font-size:13px;font-weight:700;color:'+(val>=3?'var(--cy-l)':val===2?'var(--go-l)':val===1?'var(--co-l)':'var(--mu)')+'">'+['—','1 Bajo','2 Básico','3 Sólido','4 Destacado'][val]+'</span>'+
+          '</div>'+
+          '<div style="font-size:11px;color:var(--gh);margin-bottom:5px">'+dim.desc+'</div>'+
+          '<div style="display:flex;gap:5px">'+
+            [1,2,3,4].map(n=>'<button onclick="setRubric(&quot;'+dim.k+'&quot;,'+n+')" style="flex:1;padding:6px 0;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid '+(val===n?'var(--cy)':'rgba(255,255,255,.15)')+';background:'+(val===n?'rgba(31,174,128,.2)':'rgba(255,255,255,.03)')+';color:'+(val===n?'var(--cy-l)':'#AAAACC')+'">'+n+'</button>'
+            ).join('')+
+          '</div>'+
+        '</div>';
+      }).join('')}
+      ${G.rubric.d===1&&G.rubric.e===1?'<div style="background:rgba(200,64,48,.15);border:1px solid rgba(200,64,48,.4);border-radius:8px;padding:9px 12px;margin-bottom:10px;font-size:13px;color:var(--co-l);font-weight:700">⚠ Criterio de veto activo — ambas dimensiones en nivel 1. Revisar antes de emitir veredicto.</div>':''}
+      <div style="font-size:11px;color:var(--go-l);font-weight:600;margin-bottom:8px">
+        Puntaje ponderado: ${Math.round((G.rubric.d||0)*25+(G.rubric.e||0)*25+(G.rubric.s||0)*20+(G.rubric.t||0)*20+(G.rubric.com||0)*10)}/400
+      </div>
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gh);font-weight:700;font-family:var(--fh);margin-bottom:8px;margin-top:4px">Veredicto</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
         ${['No admitido','Lista de espera','Admitido','Admitido con mención'].map(v=>`<button onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.style.cssText='');this.style.cssText='border-color:var(--cy);background:rgba(31,174,128,.18);color:var(--cy-l);font-weight:700'" style="font-size:11px;padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.03);color:#C0C0E0;cursor:pointer;font-family:var(--fh);font-weight:600;transition:all .15s">${v}</button>`).join('')}
       </div>
-      <textarea style="width:100%;background:rgba(255,255,255,.03);border:.5px solid rgba(255,255,255,.12);border-radius:7px;padding:8px 10px;color:#EEEEFF;font-size:12px;font-family:var(--fb);resize:none;outline:none;min-height:50px" placeholder="Observaciones del evaluador: fortalezas, áreas de desarrollo, notas de orientación vocacional..."></textarea>
+      <textarea style="width:100%;background:rgba(255,255,255,.03);border:.5px solid rgba(255,255,255,.12);border-radius:7px;padding:8px 10px;color:#EEEEFF;font-size:12px;font-family:var(--fb);resize:none;outline:none;min-height:50px" placeholder="Fortalezas, áreas de desarrollo, orientación vocacional específica..." oninput="G.rubricNotes=this.value">${G.rubricNotes||''}</textarea>
     </div>`:``}
   </div>`;
 
@@ -2263,7 +2484,165 @@ function renderTeamGrid(gridId){
   }).join('');
 }
 
+// ═══════════════════════════════════════════ NEW v9 HELPERS
+
+// Decision justification
+function saveDecJust(idx,di,val){
+  if(!G.decJust)G.decJust=[[null,null],[null,null],[null,null],[null,null],[null]];
+  if(!G.decJust[idx])G.decJust[idx]=[null,null];
+  G.decJust[idx][di]=val;
+  saveCheckpoint();
+}
+
+// Custom palette
+function selPal(pi){
+  G.selectedPal=pi;
+  if(pi===-1&&!G.customPal)G.customPal=['#333333','#777777','#AAAAAA','#CCCCCC','#FFFFFF'];
+  renderMission(G.mActive);
+}
+function setCustomPal(ci,col){
+  if(!G.customPal)G.customPal=['#333333','#777777','#AAAAAA','#CCCCCC','#FFFFFF'];
+  G.customPal[ci]=col;
+  G.selectedPal=-1;
+  renderMission(G.mActive);
+}
+
+// M4 other object
+function setObjOther(key,val){
+  if(!G.objOther)G.objOther={name:'',desc:'',dataUrl:null};
+  G.objOther[key]=val;
+  // Grant bonus credits once name+desc filled
+  if(G.objOther.name&&G.objOther.desc&&!G.objOther.credited){
+    gain({v:2});
+    G.objOther.credited=true;
+    showToast('◆◆ extra — pensamiento divergente: objeto propio','t-ok');
+  }
+  saveCheckpoint();
+}
+function objOtherUpload(evt){
+  var file=evt.target.files&&evt.target.files[0];
+  if(!file)return;
+  if(file.size>5*1024*1024){showToast('Máx. 5 MB','t-warn');return;}
+  var reader=new FileReader();
+  reader.onload=function(e){
+    if(!G.objOther)G.objOther={name:'',desc:'',dataUrl:null};
+    G.objOther.dataUrl=e.target.result;
+    renderMission(G.mActive);
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearObjOtherImg(){
+  if(G.objOther)G.objOther.dataUrl=null;
+  renderMission(G.mActive);
+}
+
+// M5 pre-route question
+function setM5Preq(qi){G.m5preq=qi;renderMission(G.mActive);}
+
+// Synthesis challenge
+function completeSynth(){
+  if(!G.synthAns||G.synthAns.trim().length<10){
+    showToast('Escribe al menos una oración completa','t-warn');return;
+  }
+  G.synthDone=true;
+  gain({v:1,n:1});
+  saveCheckpoint();
+  renderTab();
+  showToast('✓ Reto de síntesis completado — +◆ +★','t-ok');
+}
+
+// Rubric scoring
+function setRubric(key,val){
+  G.rubric[key]=val;
+  renderOP();
+}
+
+// Checkpoint — localStorage (exclude images to stay within quota)
+function saveCheckpoint(){
+  try{
+    var snap={
+      aIdx:G.aIdx,mst:G.mst,cred:G.cred,
+      decSel:G.decSel,decJust:G.decJust,
+      selectedPal:G.selectedPal,customPal:G.customPal,palNote:G.palNote,
+      selectedSpace:G.selectedSpace,selectedEls:G.selectedEls,
+      selectedObjs:G.selectedObjs,objCat:G.objCat,
+      objOther:G.objOther?{name:G.objOther.name,desc:G.objOther.desc,credited:G.objOther.credited}:null,
+      routePick:G.routePick,m5preq:G.m5preq,storyScenes:G.storyScenes,
+      penalties:G.penalties,synthDone:G.synthDone,synthAns:G.synthAns,
+      silGender:G.silGender,silBase:G.silBase,silTop:G.silTop,silBottom:G.silBottom,
+      silShoes:G.silShoes,silAcc:G.silAcc,silColor:G.silColor,
+      rubric:G.rubric,rubricNotes:G.rubricNotes
+    };
+    localStorage.setItem('cq_checkpoint',JSON.stringify(snap));
+  }catch(e){}
+}
+
+function loadCheckpoint(){
+  try{
+    var raw=localStorage.getItem('cq_checkpoint');
+    if(!raw)return false;
+    var snap=JSON.parse(raw);
+    if(snap.aIdx==null||snap.aIdx===undefined)return false;
+    // Restore state
+    G.aIdx=snap.aIdx;G.arch=ARCHS[snap.aIdx];
+    G.mst=snap.mst||G.mst;G.cred=snap.cred||G.cred;
+    G.decSel=snap.decSel||G.decSel;G.decJust=snap.decJust||G.decJust;
+    G.selectedPal=snap.selectedPal!=null?snap.selectedPal:null;
+    G.customPal=snap.customPal||null;G.palNote=snap.palNote||'';
+    G.selectedSpace=snap.selectedSpace||null;G.selectedEls=snap.selectedEls||[];
+    G.selectedObjs=snap.selectedObjs||[];G.objCat=snap.objCat||'tech';
+    G.objOther=snap.objOther||null;
+    G.routePick=snap.routePick!=null?snap.routePick:null;
+    G.m5preq=snap.m5preq!=null?snap.m5preq:null;
+    G.storyScenes=snap.storyScenes||['','','',''];
+    G.penalties=snap.penalties||0;
+    G.synthDone=snap.synthDone||false;G.synthAns=snap.synthAns||null;
+    G.silGender=snap.silGender||'M';G.silBase=snap.silBase||'MA';
+    G.silTop=snap.silTop||null;G.silBottom=snap.silBottom||null;
+    G.silShoes=snap.silShoes||null;G.silAcc=snap.silAcc||null;
+    G.silColor=snap.silColor||'#2A3A5C';
+    G.rubric=snap.rubric||{d:0,e:0,s:0,t:0,com:0};
+    G.rubricNotes=snap.rubricNotes||'';
+    return true;
+  }catch(e){return false;}
+}
+
+function clearCheckpoint(){
+  try{localStorage.removeItem('cq_checkpoint');}catch(e){}
+}
+
 // ═══════════════════════════════════════════ INIT
+// Check for saved checkpoint
+(function(){
+  try{
+    var raw=localStorage.getItem('cq_checkpoint');
+    if(raw){
+      var snap=JSON.parse(raw);
+      if(snap&&snap.aIdx!=null){
+        // Show restore banner
+        var banner=document.createElement('div');
+        banner.id='restore-banner';
+        banner.style.cssText='position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(10,10,24,.97);border-bottom:1px solid rgba(139,127,232,.4);padding:14px 20px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(20px)';
+        banner.innerHTML='<span style="font-size:20px">💾</span>'+
+          '<span style="color:#DDDDFF;font-size:14px;flex:1">Hay una sesión guardada. ¿Continuar donde lo dejaste?</span>'+
+          '<button onclick="restoreSession()" style="background:rgba(139,127,232,.3);border:1px solid var(--pu);color:var(--pu-l);border-radius:8px;padding:8px 18px;cursor:pointer;font-size:13px;font-weight:700">Continuar sesión</button>'+
+          '<button onclick="document.getElementById(\'restore-banner\').remove();clearCheckpoint()" style="background:transparent;border:.5px solid rgba(255,255,255,.2);color:var(--gh);border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px">Empezar de nuevo</button>';
+        document.body.appendChild(banner);
+      }
+    }
+  }catch(e){}
+})();
+
+function restoreSession(){
+  if(loadCheckpoint()){
+    document.getElementById('restore-banner')&&document.getElementById('restore-banner').remove();
+    buildSlider();syncC();updateMtrack();
+    goS('tablero');renderTab();
+    showToast('Sesión restaurada','t-ok');
+  }
+}
+
 buildSlider();syncC();updateMtrack();
 </script>
 
