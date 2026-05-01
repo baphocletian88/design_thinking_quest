@@ -151,7 +151,7 @@ html,body{height:100%;background:var(--bg0);color:var(--wh);font-family:var(--fb
 .mchip{font-size:10px;padding:2px 7px;border-radius:5px;font-family:var(--fm)}
 .mprog{height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:9px}
 .mpf{height:100%;border-radius:2px;transition:width .6s ease}
-.pen-warning{background:rgba(200,64,48,.1);border:.5px solid rgba(200,64,48,.3);border-radius:9px;padding:11px 14px;display:flex;align-items:center;gap:10px;margin-bottom:18px;font-size:13px;color:var(--co-l)}
+
 
 /* ───────────────────────────────────────────────────────────── MISIÓN */
 .m-hdr{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
@@ -556,7 +556,7 @@ select.fi{cursor:pointer;-webkit-appearance:none;background-image:url("data:imag
 <!-- ══ SELECT ══════════════════════════════════════════════════════ -->
 <div class="scr on" id="s-select">
   <div class="pg-title">Elige tu personaje</div>
-  <div class="pg-sub">Tu arquetipo define tus herramientas, el orden óptimo de misiones y la paleta de tu universo. Desliza y lee bien antes de elegir. <strong style="color:var(--co-l)">⚠ Respuestas incorrectas en el reto de cada misión restan 5 minutos al reloj.</strong></div>
+  <div class="pg-sub">Tu arquetipo define tus herramientas, el orden óptimo de misiones y la paleta de tu universo. Desliza y lee bien antes de elegir.</div>
   <div class="sl-ctrl">
     <button class="sarr" id="sap" onclick="aMove(-1)" disabled>‹</button>
     <div class="sdots" id="sdots"></div>
@@ -570,7 +570,6 @@ select.fi{cursor:pointer;-webkit-appearance:none;background-image:url("data:imag
 <div class="scr" id="s-tablero">
   <div class="pg-title">Tu tablero</div>
   <div class="pg-sub">Elige en qué orden atacas las misiones. Las bloqueadas se desbloquean completando las anteriores.</div>
-  <div class="pen-warning">⚠️ <strong>Regla de penalización:</strong> cada respuesta incorrecta en el reto de apertura de una misión <strong>resta 5 minutos</strong> al tiempo total. Piensa antes de elegir.</div>
   <div class="arch-mini" id="arch-mini"></div>
   <div class="mgrid" id="mcards"></div>
   <button class="btn btn-p" onclick="goS('inventario')" style="max-width:280px;margin-top:4px">Ver inventario →</button>
@@ -644,10 +643,34 @@ select.fi{cursor:pointer;-webkit-appearance:none;background-image:url("data:imag
   <div class="pg-sub">Conexión en tiempo real entre dispositivos. Cada aplicante trabaja desde su propio dispositivo — el evaluador y el coordinador ven el progreso en vivo.</div>
 
   <!-- ── TABS ── -->
-  <div style="display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--bd);padding-bottom:0">
+  <div id="sala-tabs" style="display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--bd);padding-bottom:0;align-items:flex-end">
     <button class="sala-tab on" id="stab-aplicante" onclick="setSalaTab('aplicante')">🎮 Aplicante</button>
-    <button class="sala-tab" id="stab-evaluador" onclick="setSalaTab('evaluador')">📋 Evaluador</button>
-    <button class="sala-tab" id="stab-coordinador" onclick="setSalaTab('coordinador')">🗂 Coordinador</button>
+    <span style="flex:1"></span>
+    <button onclick="document.getElementById('pin-gate').style.display='block';document.getElementById('pin-input').focus()"
+      style="background:transparent;border:none;color:var(--mu);font-size:11px;cursor:pointer;padding:8px 0;font-family:var(--fh)">
+      🔐 Soy evaluador
+    </button>
+  </div>
+  <!-- ── PIN GATE ── -->
+  <div id="pin-gate" style="display:none;margin-bottom:18px">
+    <div class="tool-block" style="max-width:460px;border-color:rgba(139,127,232,.35)">
+      <div class="tool-lbl" style="color:var(--pu-l)">🔐 Acceso de evaluador</div>
+      <div style="font-size:13px;color:var(--gh);margin-bottom:12px;line-height:1.6">
+        Ingresa el PIN de 6 dígitos que te compartió el coordinador.
+      </div>
+      <div style="display:flex;gap:8px">
+        <input id="pin-input" type="password" maxlength="6" placeholder="● ● ● ● ● ●"
+          style="flex:1;font-size:22px;font-family:var(--fm);letter-spacing:.3em;text-align:center;margin:0;padding:12px"
+          class="fi" oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+          onkeydown="if(event.key==='Enter')verifyPin()">
+        <button class="btn btn-p" onclick="verifyPin()" style="width:auto;padding:0 20px;margin:0;font-size:14px">Verificar</button>
+      </div>
+      <div id="pin-error" style="display:none;margin-top:8px;font-size:12px;color:var(--co-l)"></div>
+      <button onclick="document.getElementById('pin-gate').style.display='none'"
+        style="background:transparent;border:none;color:var(--mu);font-size:12px;cursor:pointer;margin-top:10px;padding:0">
+        ← Volver
+      </button>
+    </div>
   </div>
 
   <!-- ── PANEL APLICANTE ── -->
@@ -719,12 +742,28 @@ select.fi{cursor:pointer;-webkit-appearance:none;background-image:url("data:imag
         <div class="tool-lbl">Notas de observación</div>
         <textarea class="fi" id="colab-notes" placeholder="¿Quién tomó la iniciativa? ¿Cómo resolvieron conflictos de arquetipo? ¿Hay coherencia narrativa entre los universos?" rows="4"></textarea>
       </div>
-      <button class="btn" onclick="leaveEval()" style="max-width:200px;margin-top:4px;background:rgba(200,64,48,.12);border-color:rgba(200,64,48,.35);color:#E87060">Cerrar sala</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+        <button class="btn" onclick="leaveEval()" style="width:auto;padding:0 16px;background:rgba(200,64,48,.12);border-color:rgba(200,64,48,.35);color:#E87060">Cerrar sala</button>
+        <button class="btn" onclick="revokeEvalAccess()" style="width:auto;padding:0 16px;background:rgba(200,64,48,.06);border-color:rgba(200,64,48,.2);color:#C07070;font-size:12px">🔒 Cerrar sesión de evaluador</button>
+      </div>
     </div>
   </div>
 
   <!-- ── PANEL COORDINADOR ── -->
   <div id="spanel-coordinador" style="display:none">
+    <div class="tool-block" style="max-width:min(620px,100%);border-color:rgba(139,127,232,.35);margin-bottom:16px">
+      <div class="tool-lbl" style="color:var(--pu-l)">🔐 Generar PINs de sesión</div>
+      <div style="font-size:13px;color:var(--gh);margin-bottom:12px;line-height:1.6">
+        Genera PINs de 6 dígitos para que evaluadores accedan a su panel. Expiran en 4 horas.
+        <strong style="color:var(--wh)"> Compártelos por canal privado</strong> — nunca en el chat de Zoom donde los aplicantes puedan verlos.
+      </div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px">
+        <button class="btn btn-p" onclick="generateSessionPin()" style="width:auto;padding:0 18px;margin:0;font-size:13px">+ PIN Evaluador</button>
+        <button class="btn btn-g" onclick="generateCoordPin()" style="width:auto;padding:0 18px;margin:0;font-size:13px">+ PIN Coordinador</button>
+      </div>
+      <div id="generated-pin-display" style="display:none;background:rgba(139,127,232,.08);border:.5px solid rgba(139,127,232,.25);border-radius:9px;padding:14px;text-align:center"></div>
+    </div>
+
     <div class="tool-block" style="max-width:min(620px,100%)">
       <div class="tool-lbl">🗂 Panel maestro — todas las salas activas</div>
       <div style="font-size:13px;color:var(--gh);margin-bottom:14px;line-height:1.6">
@@ -1073,7 +1112,8 @@ const G={
   teammates:{},
   _fbUnsub:false,
   _fbListenCode:null,
-  _roomMax:6
+  _roomMax:6,
+  _evalAuthed:false
 };
 
 // ═══════════════════════════════════════════ TIMER
@@ -2136,6 +2176,11 @@ function _waitFbThen(fn){
 
 // Tab switcher
 function setSalaTab(tab){
+  if((tab==='evaluador'||tab==='coordinador')&&!G._evalAuthed){
+    document.getElementById('pin-gate').style.display='block';
+    var pi=document.getElementById('pin-input');if(pi)pi.focus();
+    return;
+  }
   ['aplicante','evaluador','coordinador'].forEach(function(t){
     var btn=document.getElementById('stab-'+t);
     var panel=document.getElementById('spanel-'+t);
@@ -2611,6 +2656,118 @@ function loadCheckpoint(){
 function clearCheckpoint(){
   try{localStorage.removeItem('cq_checkpoint');}catch(e){}
 }
+
+
+// ══════════════════════════════════════ PIN AUTH SYSTEM
+
+function generateSessionPin(){
+  _generatePin('evaluador');
+}
+function generateCoordPin(){
+  _generatePin('coordinador');
+}
+function _generatePin(role){
+  if(!window._fb){showToast('Espera — conectando a Firebase...','t-warn');return;}
+  var pin='';for(var i=0;i<6;i++)pin+=Math.floor(Math.random()*10);
+  var expires=Date.now()+(4*60*60*1000);
+  window._fb.set(window._fb.ref(window._fb.db,'sessions/'+pin),{
+    role:role,created:Date.now(),expires:expires
+  }).then(function(){
+    var roleLabel=role==='coordinador'?'Coordinador':'Evaluador';
+    var expiresStr=new Date(expires).toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+    var el=document.getElementById('generated-pin-display');
+    if(el){
+      el.style.display='block';
+      el.innerHTML=
+        '<div style="font-size:11px;color:var(--gh);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">PIN '+roleLabel+' generado</div>'+
+        '<div id="gpd-pin" style="font-size:38px;font-weight:900;font-family:var(--fm);letter-spacing:.4em;color:var(--wh);margin-bottom:4px">'+pin+'</div>'+
+        '<div style="font-size:11px;color:var(--mu);margin-bottom:8px">Expira a las '+expiresStr+' — SOLO para '+roleLabel.toLowerCase()+'es</div>'+
+        '<button onclick="copyPin()" style="background:rgba(139,127,232,.2);border:.5px solid var(--pu);color:var(--pu-l);border-radius:6px;padding:5px 14px;cursor:pointer;font-size:12px;font-family:var(--fh);font-weight:600">Copiar PIN</button>';
+    }
+    showToast('PIN '+pin+' generado — comparte por canal privado','t-ok',4000);
+  }).catch(function(e){showToast('Error: '+e.message,'t-warn');});
+}
+
+function copyPin(){
+  var el=document.getElementById('gpd-pin');
+  if(!el)return;
+  var pin=el.textContent.trim();
+  navigator.clipboard.writeText(pin).then(function(){
+    showToast('PIN '+pin+' copiado','t-ok');
+  }).catch(function(){showToast('PIN: '+pin,'t-ok',5000);});
+}
+
+function verifyPin(){
+  var input=document.getElementById('pin-input');
+  var pin=(input||{}).value||'';
+  pin=pin.trim();
+  if(pin.length!==6||isNaN(Number(pin))){
+    _pinError('El PIN debe ser de 6 dígitos numéricos');return;
+  }
+  if(!window._fb){_pinError('Sin conexión. Verifica tu internet.');return;}
+  var errEl=document.getElementById('pin-error');
+  if(errEl){errEl.style.display='block';errEl.style.color='var(--gh)';errEl.textContent='Verificando...';}
+  window._fb.onValue(window._fb.ref(window._fb.db,'sessions/'+pin),function(snap){
+    window._fb.off(window._fb.ref(window._fb.db,'sessions/'+pin));
+    var data=snap.val();
+    if(!data){_pinError('PIN incorrecto — solicítalo al coordinador.');return;}
+    if(Date.now()>data.expires){_pinError('Este PIN expiró — pide al coordinador uno nuevo.');return;}
+    // Grant access
+    G._evalAuthed=true;
+    var role=data.role||'evaluador';
+    G.roomRole=role;
+    document.getElementById('pin-gate').style.display='none';
+    if(errEl)errEl.style.display='none';
+    if(input)input.value='';
+    _injectEvalTabs(role);
+    showToast('Acceso verificado como '+(role==='coordinador'?'Coordinador':'Evaluador'),'t-ok');
+    setSalaTab(role);
+  },{onlyOnce:true});
+}
+
+function _pinError(msg){
+  var errEl=document.getElementById('pin-error');
+  if(errEl){errEl.style.display='block';errEl.style.color='var(--co-l)';errEl.textContent=msg;}
+  var input=document.getElementById('pin-input');
+  if(input){input.style.borderColor='var(--co)';setTimeout(function(){input.style.borderColor='';},1800);}
+}
+
+function _injectEvalTabs(role){
+  var el=document.getElementById('sala-tabs');
+  if(!el)return;
+  var html='<button class="sala-tab" id="stab-aplicante" onclick="setSalaTab(&quot;aplicante&quot;)">Aplicante</button>'+
+    '<button class="sala-tab on" id="stab-evaluador" onclick="setSalaTab(&quot;evaluador&quot;)">Evaluador</button>'+
+    (role==='coordinador'?'<button class="sala-tab" id="stab-coordinador" onclick="setSalaTab(&quot;coordinador&quot;)">Coordinador</button>':'');
+  el.innerHTML=html;
+}
+
+function revokeEvalAccess(){
+  G._evalAuthed=false;G.roomRole=null;
+  var el=document.getElementById('sala-tabs');
+  if(el){
+    el.innerHTML=
+      '<button class="sala-tab on" id="stab-aplicante" onclick="setSalaTab(&quot;aplicante&quot;)">🎮 Aplicante</button>'+
+      '<span style="flex:1"></span>'+
+      '<button onclick="document.getElementById(&quot;pin-gate&quot;).style.display=&quot;block&quot;;document.getElementById(&quot;pin-input&quot;).focus()" style="background:transparent;border:none;color:var(--mu);font-size:11px;cursor:pointer;padding:8px 0;font-family:var(--fh)">🔐 Soy evaluador</button>';
+  }
+  setSalaTab('aplicante');
+  showToast('Sesión de evaluador cerrada','t-warn');
+}
+
+// Cleanup expired sessions on load
+setTimeout(function(){
+  if(!window._fb)return;
+  try{
+    window._fb.onValue(window._fb.ref(window._fb.db,'sessions'),function(snap){
+      window._fb.off(window._fb.ref(window._fb.db,'sessions'));
+      var data=snap.val();if(!data)return;
+      Object.keys(data).forEach(function(pin){
+        if(data[pin].expires&&Date.now()>data[pin].expires)
+          window._fb.remove(window._fb.ref(window._fb.db,'sessions/'+pin)).catch(function(){});
+      });
+    },{onlyOnce:true});
+  }catch(e){}
+},3000);
 
 // ═══════════════════════════════════════════ INIT
 // Check for saved checkpoint
